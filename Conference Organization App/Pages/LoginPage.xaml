@@ -10,12 +10,12 @@
 
     <Grid>
 
-        <StackPanel VerticalAlignment="Top" Margin="0,40,0,0" HorizontalAlignment="Center" Width="250" Height="370">
+        <StackPanel VerticalAlignment="Top" Margin="0,80,0,0" HorizontalAlignment="Center" Width="250">
             <Label Content="Логин:" Height="25"></Label>
             <TextBox x:Name="loginBox" Height="25" Margin="0,0,0,10"></TextBox>
             <Label Content="Пароль:" Height="25"></Label>
             <TextBox Height="25" x:Name="passwordBox"></TextBox>
-            <Button x:Name="applyBtn" Width="150" Height="25" Margin="0,25,0,0" Content="Подтвердить"></Button>
+            <Button x:Name="applyBtn" Width="150" Height="25" Margin="0,25,0,0" Content="Подтвердить" Click="applyBtn_Click"></Button>
         </StackPanel>
         
     </Grid>

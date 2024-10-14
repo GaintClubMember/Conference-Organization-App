@@ -24,5 +24,20 @@ namespace Conference_Organization_App.Pages.Pages_By_Role
         {
             InitializeComponent();
         }
+
+        private void regBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void backBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void myProfileBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

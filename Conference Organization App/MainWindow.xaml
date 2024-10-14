@@ -17,7 +17,7 @@
             <Image Grid.Row="0"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,400,0"></Image>
             <Label Grid.Row="0" Content="Организация конференций" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="26"></Label>
 
-            <Frame Grid.Row="2" x:Name="frameContainer"></Frame>
+            <Frame Grid.Row="2" x:Name="frameContainer" NavigationUIVisibility="Hidden"></Frame>
             
             
         </Grid>

@@ -22,5 +22,10 @@ namespace Conference_Organization_App.Pages
         {
             InitializeComponent();
         }
+
+        private void applyBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Classes.Manager.frameMaster.Navigate(new Pages.Pages_By_Role.OrganizatorPage());
+        }
     }
 }

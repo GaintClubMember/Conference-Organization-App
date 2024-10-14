@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace Conference_Organization_App.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для LoginPage.xaml
-    /// </summary>
+
     public partial class LoginPage : Page
     {
         public LoginPage()

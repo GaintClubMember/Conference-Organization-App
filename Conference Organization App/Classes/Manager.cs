@@ -12,5 +12,10 @@ namespace Conference_Organization_App.Classes
     {
         public static Frame frameMaster { get; set; }
 
+        public Data.Users savedUser;
+
+        public int failedAuthCount;
+
+        public bool isBlocked;
     }
 }

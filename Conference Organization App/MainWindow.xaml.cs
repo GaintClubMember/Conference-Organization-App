@@ -27,5 +27,7 @@ namespace Conference_Organization_App
             Classes.Manager.frameMaster = frameContainer;
             Classes.Manager.frameMaster.Navigate(new Pages.LoginPage());
         }
+
+
     }
 }

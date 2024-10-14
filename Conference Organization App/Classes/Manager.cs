@@ -10,7 +10,7 @@ namespace Conference_Organization_App.Classes
 {
     internal class Manager
     {
-        public static Frame frameMaster { get; set; };
+        public static Frame frameMaster { get; set; }
 
     }
 }

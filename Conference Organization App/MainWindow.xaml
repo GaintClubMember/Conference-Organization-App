@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Row="0"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,400,0"></Image>
+            <Label Grid.Row="0" Content="Организация конференций" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="26"></Label>
+
+            <Frame Grid.Row="2" x:Name="frameContainer"></Frame>
+            
+            
+        </Grid>
         
     </Grid>
 </Window>

@@ -1,0 +1,22 @@
+﻿<Page x:Class="Conference_Organization_App.Pages.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Conference_Organization_App.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="LoginPage">
+
+    <Grid>
+
+        <StackPanel VerticalAlignment="Top" Margin="0,40,0,0" HorizontalAlignment="Center" Width="250" Height="370">
+            <Label Content="Логин:" Height="25"></Label>
+            <TextBox x:Name="loginBox" Height="25" Margin="0,0,0,10"></TextBox>
+            <Label Content="Пароль:" Height="25"></Label>
+            <TextBox Height="25" x:Name="passwordBox"></TextBox>
+            <Button x:Name="applyBtn" Width="150" Height="25" Margin="0,25,0,0" Content="Подтвердить"></Button>
+        </StackPanel>
+        
+    </Grid>
+</Page>

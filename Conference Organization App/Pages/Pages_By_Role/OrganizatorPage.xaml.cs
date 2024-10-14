@@ -13,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Conference_Organization_App
+namespace Conference_Organization_App.Pages.Pages_By_Role
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для OrganizatorPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class OrganizatorPage : Page
     {
-        public MainWindow()
+        public OrganizatorPage()
         {
             InitializeComponent();
-
-            Classes.Manager.frameMaster = frameContainer;
-            Classes.Manager.frameMaster.Navigate(new Pages.LoginPage());
         }
-
-
     }
 }

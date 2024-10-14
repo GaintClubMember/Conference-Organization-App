@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="310cdee654df4262810ae09e4e385c0c" Name="Diagram1">
+        <EntityTypeShape EntityType="ConferenceDBModel.ActivitiesMain" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConferenceDBModel.ActivityNames" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConferenceDBModel.Cities" Width="1.5" PointX="3.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConferenceDBModel.Countries" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConferenceDBModel.EventNames" Width="1.5" PointX="0.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConferenceDBModel.EventsMain" Width="1.5" PointX="6" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConferenceDBModel.Genders" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConferenceDBModel.Roles" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConferenceDBModel.Schedule" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConferenceDBModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConferenceDBModel.UserEventDirections" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConferenceDBModel.Users" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ConferenceDBModel.UsersDirections" Width="1.5" PointX="0.75" PointY="13.5" IsExpanded="true" />
+        <AssociationConnector Association="ConferenceDBModel.FK_ActivitiesMain_EventNames" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_Schedule_ActivitiesMain" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_Schedule_ActivityNames" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_EventsMain_Cities" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_Users_Countries" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_EventsMain_EventNames" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_Users_Genders" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_Users_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_Schedule_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_Schedule_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_Schedule_Users2" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_Schedule_Users3" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_Schedule_Users4" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_Schedule_Users5" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_Users_UserEventDirections" ManuallyRouted="false" />
+        <AssociationConnector Association="ConferenceDBModel.FK_Users_UsersDirections" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

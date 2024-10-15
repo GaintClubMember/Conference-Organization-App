@@ -5,79 +5,96 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Conference_Organization_App.Pages.Pages_By_Role"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="380" d:DesignWidth="800"
       Title="OrganizatorPage">
 
-    <Grid Width="800" Height="450">
+    <Grid>
 
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="40"></RowDefinition>
-        </Grid.RowDefinitions>
+        <Grid VerticalAlignment="Center" Height="385" Width="800">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+            </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions></Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-        <StackPanel HorizontalAlignment="Center" Width="200" Margin="0,15,550,0">
-            <Image x:Name="orgImage"
-               HorizontalAlignment="Left" 
-               Width="200"
-               Height="300">
-            </Image>
+            <Grid Grid.Row="0" Grid.Column="0">
+                    <StackPanel Margin="7" Width="260" HorizontalAlignment="Left">
+                    <Image x:Name="orgImage"
+                         Width="180"
+                         Height="230"
+                           HorizontalAlignment="Center"
+                           Margin="0,20,175,0"
+                           VerticalAlignment="Top">
+                    </Image>
+                    <Button x:Name="myProfileBtn"
+                         Click="myProfileBtn_Click"
+                         Height="60"
+                         Width="200"
+                         Content="Мой Профиль" 
+                         FontSize="30"
+                            Margin="0,7,0,0"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Bottom">
+                        </Button>
+                    </StackPanel>
+            </Grid>
 
-            <Button x:Name="myProfileBtn"
-                Click="myProfileBtn_Click"
-                Height="60"
-                Width="200"
-                Content="Мой Профиль" 
-                FontSize="30"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom">
-            </Button>
-        </StackPanel>
+                <Grid Grid.Row="0" 
+                      Grid.Column="1">
+                    <StackPanel HorizontalAlignment="Center" 
+                                Width="253" 
+                                Margin="7">
+                        <Label x:Name="welcomeLabel" 
+                                VerticalAlignment="Top"
+                                HorizontalContentAlignment="Center"
+                                Margin="0,10,0,0"
+                                Content="HARDCODED FOR LOOk">
+                                </Label>
 
-        <StackPanel HorizontalAlignment="Center" Width="300">
-            <Label x:Name="welcomeLabel" 
-                   VerticalAlignment="Top"
-                   Margin="0,40,0,0"
-                   Content="HARDCODED FOR LOOk">
-                   </Label>
+                        <Button x:Name="eventsBtn" 
+                                Height="90" 
+                                Margin="0,5,0,0"
+                                Content="Мероприятия">
+                                </Button>
+                        <Button x:Name="participantsBtn" 
+                                Height="90"
+                                Margin="0,5,0,0"
+                                Content="Участники">
+                                </Button>
+                        <Button x:Name="judgesBtn" 
+                                Height="90"
+                                Margin="0,5,0,0"
+                                Content="Жюри">
+                                </Button>
+                    </StackPanel>
+                </Grid>
 
-            <Button x:Name="eventsBtn" 
-                    Height="90" 
-                    Margin="0,60,0,0"
-                    Content="Мероприятия">
-                    </Button>
-            <Button x:Name="participantsBtn" 
-                    Height="90"
-                    Margin="0,10,0,0"
-                    Content="Участники">
-                    </Button>
-            <Button x:Name="judgesBtn" 
-                    Height="90"
-                    Margin="0,10,0,0"
-                    Content="Жюри">
-                    </Button>
-        </StackPanel>
-        
-        
 
+            
+        </Grid>
 
         <Button x:Name="backBtn" 
-                Grid.Row="1" 
-                Click="backBtn_Click" 
-                Content="Назад" 
-                HorizontalAlignment="Left" 
-                Width="120">
-                </Button>
+             Grid.Row="1" 
+             Click="backBtn_Click" 
+             Content="Назад" 
+             HorizontalAlignment="Left" 
+                VerticalAlignment="Bottom"
+            Height="40"
+             Width="170">
+        </Button>
         <Button x:Name="regBtn"
-                Grid.Row="1" 
-                Click="regBtn_Click" 
-                Content="Назад" 
-                HorizontalAlignment="Right" 
-                Width="120">
-                </Button>
-        
-        
-
+             Grid.Row="1" 
+             Click="regBtn_Click" 
+             Content="Назад" 
+             HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Height="40"
+             Width="170">
+        </Button>
     </Grid>
 </Page>

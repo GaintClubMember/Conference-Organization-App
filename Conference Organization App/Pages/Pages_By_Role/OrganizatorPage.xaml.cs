@@ -32,12 +32,34 @@ namespace Conference_Organization_App.Pages.Pages_By_Role
 
         private void backBtn_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Classes.Manager.frameMaster.Navigate(new Pages.LoginPage());
+            }
+            catch(Exception ex)
+            {
 
+            }
         }
 
         private void myProfileBtn_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void eventsBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void participantsBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void judgesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Classes.Manager.frameMaster.Navigate(new Pages.RegistrationJudgeModerPage());
         }
     }
 }

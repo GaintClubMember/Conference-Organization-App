@@ -1,0 +1,93 @@
+﻿<Page x:Class="Conference_Organization_App.Pages.RegistrationJudgeModerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Conference_Organization_App.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RegistrationJudgeModerPage">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <Label Content="Регистрация жюри/модератора" FontSize="27" VerticalAlignment="Center" HorizontalAlignment="Center"></Label>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0">
+                    <Label Content="Id number:" HorizontalAlignment="Right" Margin="0,0,5,5" Height="30"></Label>
+                    <Label Content="ФИО:" HorizontalAlignment="Right" Margin="0,0,5,5" Height="30"></Label>
+                    <Label Content="Пол:" HorizontalAlignment="Right" Margin="0,0,5,5" Height="30"></Label>
+                    <Label Content="Роль:" HorizontalAlignment="Right" Margin="0,0,5,5" Height="30"></Label>
+                    <Label Content="Email:" HorizontalAlignment="Right" Margin="0,0,5,5" Height="30"></Label>
+                    <Label Content="Телефон" HorizontalAlignment="Right" Margin="0,0,5,5" Height="30"></Label>
+                    <Label Content="Направление" HorizontalAlignment="Right" Margin="0,0,5,5" Height="30"></Label>
+
+                    <Label Content="Мероприятие" HorizontalAlignment="Right" Margin="0,35,5,5"></Label>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
+                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
+                    <ComboBox Text="{Binding Genders.Name}" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></ComboBox>
+                    <ComboBox Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></ComboBox>
+                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
+                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
+                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
+
+                    <CheckBox x:Name="attachToEventCheck" HorizontalAlignment="Left" Margin="5,0,0,0" Content="Прикрепить к мероприятию"></CheckBox>
+
+                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,20,0,5"></TextBox>
+                </StackPanel>
+            </Grid>
+            
+            
+            
+            <Grid Grid.Column="2" HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <Label Margin="0,215,0,0" Content="Пароль:" HorizontalAlignment="Right" Height="30"></Label>
+                    <Label Content="Повторь пароля:" HorizontalAlignment="Right" Margin="0,5,5,5" Height="30"></Label>
+                </StackPanel>
+                <StackPanel Grid.Column="3">
+                    <Image Height="200" Width="180"></Image>
+                    <PasswordBox Height="30" Width="190" HorizontalAlignment="Left" Margin="5,15,0,5" VerticalContentAlignment="Center"></PasswordBox>
+                    <PasswordBox Height="30" Width="190" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></PasswordBox>
+
+                    <CheckBox x:Name="visiblePassword" HorizontalAlignment="Left" Margin="5,0,0,5" Content="Видимый пароль"></CheckBox>
+
+                    <Grid Margin="0,35,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Ок" Width="85" Height="30" HorizontalAlignment="Left"></Button>
+                        <Button Grid.Column="1" Content="Отмена" Width="85" Height="30" HorizontalAlignment="Right"></Button>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+
+
+
+        </Grid>
+    </Grid>
+</Page>

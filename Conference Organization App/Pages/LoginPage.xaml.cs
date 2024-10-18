@@ -72,13 +72,30 @@ namespace Conference_Organization_App.Pages
                     }
                 
             }
-            if (Classes.Manager.failedAuthCount == 2)
+            if (Classes.Manager.failedAuthCount >= 2) //// SHIT HERE NEEDS TO BE FIXED LATER!!!
             {
-                MessageBox.Show(">2 try", ">2 try", MessageBoxButton.OK, MessageBoxImage.Question);
-                ShowElements();
-                generateCaptcha();
+                if (Classes.Manager.failedAuthCount >= 3)
+                {
+                    MessageBox.Show(">2 try", ">2 try", MessageBoxButton.OK, MessageBoxImage.Question);
+                    if (verifyCaptcha(captchaInputBox.Text.ToString()) == true)
+                    {
+
+                        MessageBox.Show("Cpatcha valid", "Cpatcha valid", MessageBoxButton.OK, MessageBoxImage.Question);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cpatcha invalid", "Cpatcha valid", MessageBoxButton.OK, MessageBoxImage.Question);
+                    }
+
+                }
+                else
+                {
+                    ShowElements();
+                    generateCaptcha();
+                    MessageBox.Show(">2 try", ">2 try", MessageBoxButton.OK, MessageBoxImage.Question);
+                    return;
+                }
                 return;
-                // generate capthca and more
             }
         }
 
@@ -92,11 +109,30 @@ namespace Conference_Organization_App.Pages
             captchaStackPanel.Visibility = Visibility.Visible;
         }
 
+        private static bool verifyCaptcha(string CaptchaText)
+        {
+            try
+            {
+                if (CaptchaText == "1")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+
         private void generateCaptcha()
         {
             try
             {
-                string imagePath = "/Resources/Captcha/Captcha1.png";
+                string imagePath = "C:\\Users\\User\\source\\repos\\Conference Organization App\\Conference Organization App\\Resources\\Captcha\\Captcha1.png";
 
                 if (File.Exists(imagePath))
                 {

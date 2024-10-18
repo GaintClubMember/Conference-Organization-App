@@ -39,20 +39,20 @@
                     <Label Content="Телефон" HorizontalAlignment="Right" Margin="0,0,5,5" Height="30"></Label>
                     <Label Content="Направление" HorizontalAlignment="Right" Margin="0,0,5,5" Height="30"></Label>
 
-                    <Label Content="Мероприятие" HorizontalAlignment="Right" Margin="0,35,5,5"></Label>
+                    <Label  x:Name="eventLabel" Content="Мероприятие" HorizontalAlignment="Right" Margin="0,35,5,5"></Label>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
                     <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
-                    <ComboBox Text="{Binding Genders.Name}" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></ComboBox>
-                    <ComboBox Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></ComboBox>
+                    <ComboBox x:Name="genderComboBox" DisplayMemberPath="name" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></ComboBox>
+                    <ComboBox x:Name="roleComboBox" DisplayMemberPath="name" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></ComboBox>
                     <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
                     <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
                     <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
 
-                    <CheckBox x:Name="attachToEventCheck" HorizontalAlignment="Left" Margin="5,0,0,0" Content="Прикрепить к мероприятию"></CheckBox>
+                    <CheckBox x:Name="attachToEventCheck" Checked="attachToEventCheck_Checked" Unchecked="attachToEventCheck_Unchecked" HorizontalAlignment="Left" Margin="5,0,0,0" Content="Прикрепить к мероприятию"></CheckBox>
 
-                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,20,0,5"></TextBox>
+                    <TextBox x:Name="eventBox" HorizontalAlignment="Left" Height="30" Width="190" Margin="5,20,0,5"></TextBox>
                 </StackPanel>
             </Grid>
             

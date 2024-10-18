@@ -198,6 +198,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\DefaultImage.png" />
     <Resource Include="Resources\Captcha\Captcha1.png" />
   </ItemGroup>
   <ItemGroup>

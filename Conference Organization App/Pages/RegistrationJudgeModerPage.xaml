@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Conference_Organization_App.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="800"
       Title="RegistrationJudgeModerPage">
 
     <Grid>
@@ -42,17 +42,31 @@
                     <Label  x:Name="eventLabel" Content="Мероприятие" HorizontalAlignment="Right" Margin="0,35,5,5"></Label>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
+                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center" IsEnabled="False" Text="AUTO"></TextBox>
+                    <TextBox x:Name="fioBox" HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
+                    <ComboBox x:Name="genderComboBox" SelectedValuePath="id" DisplayMemberPath="name" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></ComboBox>
+                    <ComboBox x:Name="roleComboBox" SelectedValuePath="id" DisplayMemberPath="name" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center" SelectionChanged="roleComboBox_SelectionChanged"></ComboBox>
+                    <TextBox x:Name="emailBox"  HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
                     <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
-                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
-                    <ComboBox x:Name="genderComboBox" DisplayMemberPath="name" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></ComboBox>
-                    <ComboBox x:Name="roleComboBox" DisplayMemberPath="name" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></ComboBox>
-                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
-                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
-                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
-
+                    <TextBox x:Name="directionBox" HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
+                    
                     <CheckBox x:Name="attachToEventCheck" Checked="attachToEventCheck_Checked" Unchecked="attachToEventCheck_Unchecked" HorizontalAlignment="Left" Margin="5,0,0,0" Content="Прикрепить к мероприятию"></CheckBox>
 
-                    <TextBox x:Name="eventBox" HorizontalAlignment="Left" Height="30" Width="190" Margin="5,20,0,5"></TextBox>
+                    <TextBox x:Name="eventBox" Text="{Binding Name}" HorizontalAlignment="Left" Height="30" Width="190" Margin="5,20,0,0" TextChanged="eventBox_TextChanged"></TextBox>
+                    <ListView x:Name="eventSearchMenu" Width="190" Height="115" Margin="5,0,0,0" SelectionChanged="eventSearchMenu_SelectionChanged">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" x:Name="eventSearchItem_Id" Width="20" Text="{Binding id}"></TextBlock>
+                                    <TextBlock Grid.Column="1" x:Name="eventSearchItem" Width="190" TextWrapping="Wrap" Text="{Binding Name}"></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </StackPanel>
             </Grid>
             
@@ -69,20 +83,20 @@
                     <Label Content="Повторь пароля:" HorizontalAlignment="Right" Margin="0,5,5,5" Height="30"></Label>
                 </StackPanel>
                 <StackPanel Grid.Column="3">
-                    <Image Height="200" Width="180" Source
-                           
-                           ="/Resources/Images/DefaultImage.png"></Image>
-                    <PasswordBox Height="30" Width="190" HorizontalAlignment="Left" Margin="5,15,0,5" VerticalContentAlignment="Center"></PasswordBox>
-                    <PasswordBox Height="30" Width="190" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></PasswordBox>
+                    <Image x:Name="imageHolder" Height="200" Width="180" Source="/Resources/Images/DefaultImage.png"></Image>
+                    <PasswordBox x:Name="passwordBox" Height="30" Width="190" HorizontalAlignment="Left" Margin="5,15,0,5" VerticalContentAlignment="Center" Visibility="Visible"></PasswordBox>
+                    <TextBox x:Name="passwordTextBox" Height="30" Width="190" HorizontalAlignment="Left" Margin="5,15,0,5" VerticalContentAlignment="Center" Visibility="Collapsed"></TextBox>
+                    <PasswordBox x:Name="passwordBox2" Height="30" Width="190" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></PasswordBox>
+                    <TextBox x:Name="passwordTextBox2"  Height="30" Width="190" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center" Visibility="Collapsed"></TextBox>
 
-                    <CheckBox x:Name="visiblePassword" HorizontalAlignment="Left" Margin="5,0,0,5" Content="Видимый пароль"></CheckBox>
+                    <CheckBox Checked="visiblePassword_Checked" Unchecked="visiblePassword_Unchecked" x:Name="visiblePassword" HorizontalAlignment="Left" Margin="5,0,0,5" Content="Видимый пароль"></CheckBox>
 
                     <Grid Margin="0,35,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0" Content="Ок" Width="85" Height="30" HorizontalAlignment="Left"></Button>
+                        <Button Grid.Column="0" x:Name="okBtn" Click="okBtn_Click" Content="Ок" Width="85" Height="30" HorizontalAlignment="Left"></Button>
                         <Button Grid.Column="1" Content="Отмена" Width="85" Height="30" HorizontalAlignment="Right"></Button>
                     </Grid>
                 </StackPanel>

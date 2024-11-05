@@ -85,14 +85,7 @@
         </ListView>
         
         <Grid Grid.Row="2">
-            <Button x:Name="backBtn" 
-                Grid.Row="1" 
-                Content="Назад" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Bottom"
-                Height="40"
-                Width="170">
-            </Button>
+            
 
             <Button x:Name="authBtn"
                 Grid.Row="1" 
@@ -103,14 +96,7 @@
                 Width="170">
             </Button>
 
-            <Button x:Name="regBtn"
-                 Grid.Row="1" 
-                 Content="Назад" 
-                 HorizontalAlignment="Right"
-                 VerticalAlignment="Bottom"
-                 Height="40"
-                 Width="170">
-            </Button>
+           
         </Grid>
         
     </Grid>

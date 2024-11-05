@@ -66,13 +66,22 @@ namespace Conference_Organization_App.Classes
         {
             try
             {
-                var list = Data.DB_Entities.GetContext().EventsMain.ToList();
-                foreach (var item in list)
+                var listJPG = Data.DB_Entities.GetContext().EventsMain.ToList();
+                foreach (var item in listJPG)
                 {
-                    string path = Directory.GetCurrentDirectory() + @"\img\" + item.Photo_Name.ToString();
-                    if (File.Exists(path))
+                    string pathJPG = Directory.GetCurrentDirectory() + @"\img\" + item.Photo_Name + ".jpg";
+                    if (File.Exists(pathJPG))
                     {
-                        item.Photo_Image = File.ReadAllBytes(path);
+                        item.Photo_Image = File.ReadAllBytes(pathJPG);
+                    }
+                }
+                var listJPEG = Data.DB_Entities.GetContext().EventsMain.ToList();
+                foreach (var item in listJPEG)
+                {
+                    string pathJPEG = Directory.GetCurrentDirectory() + @"\img\" + item.Photo_Name + ".jpeg";
+                    if (File.Exists(pathJPEG))
+                    {
+                        item.Photo_Image = File.ReadAllBytes(pathJPEG);
                     }
                 }
                 Data.DB_Entities.GetContext().SaveChanges();

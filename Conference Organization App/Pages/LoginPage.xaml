@@ -5,15 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Conference_Organization_App.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="380" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="800"
       Title="LoginPage">
 
     <Grid>
 
         <StackPanel VerticalAlignment="Top" Margin="0,80,0,0" HorizontalAlignment="Center" Width="250">
-            <Label Content="Логин:" Height="25"></Label>
+            <Label FontSize="20" Content="Логин:" Height="35"></Label>
             <TextBox x:Name="loginBox" Height="25" Margin="0,0,0,10"></TextBox>
-            <Label Content="Пароль:" Height="25"></Label>
+            <Label FontSize="20" Content="Пароль:" Height="35"></Label>
             <TextBox Height="25" x:Name="passwordBox"></TextBox>
             
             <!-- Captcha elements -->

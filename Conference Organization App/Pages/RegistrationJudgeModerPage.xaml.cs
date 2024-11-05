@@ -67,7 +67,6 @@ namespace Conference_Organization_App.Pages
             else
             {
                 eventSearchMenu.ItemsSource = (Data.DB_Entities.GetContext().EventNames.Where(d => d.Name == eventBox.Text)).ToList();
-
             }
         }
 
@@ -188,7 +187,7 @@ namespace Conference_Organization_App.Pages
             // more complicated check needed (like FIO check but for phone form
 
             //Users image Check
-            if (imageProcessor)
+            // not required
 
 
             // Users password Check
@@ -239,7 +238,7 @@ namespace Conference_Organization_App.Pages
 
         private bool imageProcessor()
         {
-            if ()
+            if ("asda" == "asda")
             {
                 return true;
             }
@@ -280,6 +279,18 @@ namespace Conference_Organization_App.Pages
         private void roleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void cancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Classes.Manager.frameMaster.Navigate(new Pages.RegistrationJudgeModerPage());
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
     }
 }

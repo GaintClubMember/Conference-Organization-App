@@ -1,193 +1,201 @@
 ﻿using Conference_Organization_App.Classes;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Conference_Organization_App.Pages
 {
     public partial class LoginPage : Page
     {
+        private readonly Random randomNumber = new Random();
+        private static string validCaptcha;
+        private DispatcherTimer blockTimer;
+
         public LoginPage()
         {
             InitializeComponent();
 
-
-            // delete 2 lines below
+            // Sample login and password, should be removed
             loginBox.Text = "9204927370";
             passwordBox.Text = "bBFR23s95s";
-            
+
         }
 
         private void checkAuth()
         {
-            if (Classes.Manager.failedAuthCount < 2)
+            if (Manager.failedAuthCount < 2)
             {
                 string login = loginBox.Text;
                 string password = passwordBox.Text;
 
-                //var isUserExists = Data.DB_Entities.GetContext().Users.FirstOrDefault(d => d.Phone == login); // phone needs to be changed
-                //if(isUserExists == null)
-                //{
-                //    MessageBox.Show("Пользователя не существует | " + Classes.Manager.failedAuthCount.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
-                //    return;
-                //}
-                    if (Data.DB_Entities.GetContext().Users.Any(d => d.Phone == login && d.Password == password)) // phone needs to be changed
-                    {
-                        Classes.Manager.currentOrSavedUser = Data.DB_Entities.GetContext().Users.FirstOrDefault(d => d.Phone == login && d.Password == password); // adding data to Saved User to retrive role  // phone needs to be changed
-                        string role = Classes.Manager.currentOrSavedUser.Roles.name; // retriving name of role from Saved user
-
-                        switch(role)
-                        {
-                            case "Организатор":
-                                Classes.Manager.frameMaster.Navigate(new Pages.Pages_By_Role.OrganizatorPage());
-                                break;
-                            case "Участник":
-                                Classes.Manager.frameMaster.Navigate(new Pages.Pages_By_Role.OrganizatorPage()); // add ParticipantPage
-                                break;
-                            case "Жюри":
-                                Classes.Manager.frameMaster.Navigate(new Pages.Pages_By_Role.OrganizatorPage()); // add JudgePage
-                                break;
-                            case "Модератор":
-                                Classes.Manager.frameMaster.Navigate(new Pages.Pages_By_Role.OrganizatorPage()); // add ModeratorPage
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        Classes.Manager.failedAuthCount++;
-                        MessageBox.Show("Неверный логин или пароль | " + Classes.Manager.failedAuthCount.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
-                        return;
-                    }
-                
-            }
-            if (Classes.Manager.failedAuthCount >= 2) //// SHIT HERE NEEDS TO BE FIXED LATER!!!
-            {
-                if (Classes.Manager.failedAuthCount >= 3)
+                if (Data.DB_Entities.GetContext().Users.Any(d => d.Phone == login && d.Password == password))
                 {
-                    MessageBox.Show(">2 try", ">2 try", MessageBoxButton.OK, MessageBoxImage.Question);
-                    if (verifyCaptcha(captchaInputBox.Text.ToString()) == true)
-                    {
+                    Manager.currentOrSavedUser = Data.DB_Entities.GetContext().Users
+                        .FirstOrDefault(d => d.Phone == login && d.Password == password);
 
-                        MessageBox.Show("Cpatcha valid", "Cpatcha valid", MessageBoxButton.OK, MessageBoxImage.Question);
-                    }
-                    else
+                    string role = Manager.currentOrSavedUser.Roles.name;
+
+                    string name = Manager.currentOrSavedUser.Name.ToString();
+                    string gender = Manager.currentOrSavedUser.Genders.name.ToString();
+
+                    switch (role)
                     {
-                        MessageBox.Show("Cpatcha invalid", "Cpatcha valid", MessageBoxButton.OK, MessageBoxImage.Question);
+                        case "Организатор":
+                            Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage(name, gender));
+                            break;
+                        case "Участник":
+                            //Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage());
+                            break;
+                        case "Жюри":
+                            //Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage());
+                            break;
+                        case "Модератор":
+                            //Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage());
+                            break;
                     }
 
+                    MessageBox.Show("Успешная авторизация", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
-                    ShowElements();
-                    generateCaptcha();
-                    MessageBox.Show(">2 try", ">2 try", MessageBoxButton.OK, MessageBoxImage.Question);
-                    return;
+                    MessageBox.Show("Неправильный логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Manager.failedAuthCount++;
                 }
-                return;
+            }
+
+            if (Manager.failedAuthCount >= 2)
+            {
+                if (Manager.failedAuthCount >= 3)
+                {
+                    // If failed attempts reach 3 or more, verify CAPTCHA
+                    if (!verifyCaptcha(captchaInputBox.Text) == true)
+                    {
+                        // block boxes && start timer
+                        disableBoxes();
+                        MessageBox.Show("Неправильная каптча", "Блокировака", MessageBoxButton.OK, MessageBoxImage.Hand);
+                    }
+                    else
+                    {
+                        // login tree
+                        string login = loginBox.Text;
+                        string password = passwordBox.Text;
+
+                        if (Data.DB_Entities.GetContext().Users.Any(d => d.Phone == login && d.Password == password))
+                        {
+                            Manager.currentOrSavedUser = Data.DB_Entities.GetContext().Users
+                                .FirstOrDefault(d => d.Phone == login && d.Password == password);
+
+                            string role = Manager.currentOrSavedUser.Roles.name;
+
+                            string name = Manager.currentOrSavedUser.Name.ToString();
+                            string gender = Manager.currentOrSavedUser.Genders.name.ToString();
+
+                            switch (role)
+                            {
+                                case "Организатор":
+                                    Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage(name, gender));
+                                    break;
+                                case "Участник":
+                                    //Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage());
+                                    break;
+                                case "Жюри":
+                                    //Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage());
+                                    break;
+                                case "Модератор":
+                                    //Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage());
+                                    break;
+                            }
+                            MessageBox.Show("Успешная авторизация", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Неправильный логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            Manager.failedAuthCount++;
+                            disableBoxes();
+                        }
+                    }
+                }
+                else
+                {
+                    Manager.failedAuthCount++;
+                    ShowCaptcha();
+                    generateCaptcha();
+                }
             }
         }
 
-        private void ShowElements()
-        {
-            // Устанавливаем видимость элементов, которые были Hidden
-            loginBox.Visibility = Visibility.Visible;
-            passwordBox.Visibility = Visibility.Visible;
 
-            // Меняем StackPanel из Collapsed на Visible
+
+        private void disableBoxes()
+        {
+            loginBox.IsEnabled = false;
+            passwordBox.IsEnabled = false;
+            Classes.Manager.StartBlockTimer(UnblockBoxes);
+        }
+
+
+
+        private void UnblockBoxes()
+        {
+            captchaInputBox.Text = $"Блокировка: {Classes.Manager.BlockDuration} сек";
+            if (Classes.Manager.BlockDuration == 0)
+            {
+                loginBox.IsEnabled = true;
+                passwordBox.IsEnabled = true;
+                MessageBox.Show("Можете попробовать снова", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void ShowCaptcha()
+        {
             captchaStackPanel.Visibility = Visibility.Visible;
         }
 
-        private static bool verifyCaptcha(string CaptchaText)
+        private static bool verifyCaptcha(string captchaText)
         {
-            try
-            {
-                if (CaptchaText == "1")
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch(Exception ex)
-            {
-                return false;
-            }
+            return validCaptcha == captchaText;
         }
 
         private void generateCaptcha()
         {
-            try
+            int randomCaptcha = randomNumber.Next(1, 2);
+            string imagePath = $"C:/Users/User/source/repos/Conference Organization App/Conference Organization App/Resources/Captcha/Captcha1.png";
+            validCaptcha = randomCaptcha.ToString();
+
+            if (File.Exists(imagePath))
             {
-                string imagePath = "C:\\Users\\User\\source\\repos\\Conference Organization App\\Conference Organization App\\Resources\\Captcha\\Captcha1.png";
-
-                if (File.Exists(imagePath))
-                {
-                    // Load the image
-                    BitmapImage bitmapImage = new BitmapImage(new Uri(imagePath, UriKind.Relative));
-
-                    // Convert the image to a format we can modify (like a writable bitmap)
-                    WriteableBitmap writeableBitmap = new WriteableBitmap(bitmapImage);
-
-                    // Modify pixels (example: draw random dots for CAPTCHA noise)
-                    AddNoiseToCaptcha(writeableBitmap);
-
-                    // Set the modified image as the source for the captchaImage control
-                    captchaImage.Source = writeableBitmap;
-                }
-                else
-                {
-                    MessageBox.Show("Captcha image not found.");
-                }
+                BitmapImage bitmapImage = new BitmapImage(new Uri(imagePath, UriKind.Relative));
+                WriteableBitmap writeableBitmap = new WriteableBitmap(bitmapImage);
+                AddNoiseToCaptcha(writeableBitmap);
+                captchaImage.Source = writeableBitmap;
             }
-            catch (Exception ex)
+            else
             {
-
+                MessageBox.Show("Каптча не найдена");
             }
         }
 
         private void AddNoiseToCaptcha(WriteableBitmap bitmap)
         {
             Random random = new Random();
-
-            // Простой пример: добавляем 50 случайных черных точек на изображение
             for (int i = 0; i < 50; i++)
             {
                 int x = random.Next(0, bitmap.PixelWidth);
                 int y = random.Next(0, bitmap.PixelHeight);
-
-                // Цвет в формате ARGB (черный цвет: 255, 0, 0, 0)
-                byte[] blackPixel = { 0, 0, 0, 255 };  // A, R, G, B
-
-                // Открываем доступ к пикселям изображения
+                byte[] blackPixel = { 0, 0, 0, 255 };
                 bitmap.Lock();
-
-                // Устанавливаем пиксель чёрного цвета
-                bitmap.WritePixels(new Int32Rect(x, y, 1, 1), blackPixel, 4, 0);
-
-                // Завершаем изменение пикселей
+                bitmap.WritePixels(new System.Windows.Int32Rect(x, y, 1, 1), blackPixel, 10, 0);
                 bitmap.Unlock();
             }
         }
 
-
-
         private void applyBtn_Click(object sender, RoutedEventArgs e)
         {
-            checkAuth();        
+            checkAuth();
         }
     }
 }

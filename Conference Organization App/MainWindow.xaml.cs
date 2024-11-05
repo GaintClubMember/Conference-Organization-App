@@ -25,7 +25,11 @@ namespace Conference_Organization_App
             InitializeComponent();
 
             Classes.Manager.frameMaster = frameContainer;
-            Classes.Manager.frameMaster.Navigate(new Pages.LoginPage());
+            Classes.Manager.frameMaster.Navigate(new Pages.ListViewAll());
+
+            Classes.Manager.GetImageDataForUsers();
+            Classes.Manager.GetImageDataForEvents();
+
         }
 
 

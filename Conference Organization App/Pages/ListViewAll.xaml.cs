@@ -23,6 +23,26 @@ namespace Conference_Organization_App.Pages
         public ListViewAll()
         {
             InitializeComponent();
+
+            try
+            {
+                loadListView();
+                loadComboBox();
+            }
+            catch(Exception ex)
+            {
+                return;
+            }
+        }
+
+        private void loadComboBox()
+        {
+            findByComboBox.ItemsSource = Data.DB_Entities.GetContext().UsersDirections.ToList();
+        }
+
+        private void loadListView()
+        {
+            listView.ItemsSource = Data.DB_Entities.GetContext().EventsMain.ToList();
         }
     }
 }

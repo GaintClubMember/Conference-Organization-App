@@ -29,7 +29,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="IsValid" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsValid" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Countries">
           <Key>
@@ -59,6 +59,7 @@
           <Property Name="City_Id" Type="int" Nullable="false" />
           <Property Name="Photo_Name" Type="nvarchar" MaxLength="100" />
           <Property Name="Photo_Image" Type="image" />
+          <Property Name="EventDirection_Id" Type="int" />
         </EntityType>
         <EntityType Name="Genders">
           <Key>
@@ -167,6 +168,18 @@
             </Principal>
             <Dependent Role="EventsMain">
               <PropertyRef Name="EventName_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventsMain_UserEventDirections">
+          <End Role="UserEventDirections" Type="Self.UserEventDirections" Multiplicity="0..1" />
+          <End Role="EventsMain" Type="Self.EventsMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserEventDirections">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EventsMain">
+              <PropertyRef Name="EventDirection_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -352,6 +365,10 @@
             <End Role="EventNames" EntitySet="EventNames" />
             <End Role="EventsMain" EntitySet="EventsMain" />
           </AssociationSet>
+          <AssociationSet Name="FK_EventsMain_UserEventDirections" Association="Self.FK_EventsMain_UserEventDirections">
+            <End Role="UserEventDirections" EntitySet="UserEventDirections" />
+            <End Role="EventsMain" EntitySet="EventsMain" />
+          </AssociationSet>
           <AssociationSet Name="FK_Schedule_ActivitiesMain" Association="Self.FK_Schedule_ActivitiesMain">
             <End Role="ActivitiesMain" EntitySet="ActivitiesMain" />
             <End Role="Schedule" EntitySet="Schedule" />
@@ -437,7 +454,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IsValid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsValid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="EventsMain" Relationship="Self.FK_EventsMain_Cities" FromRole="Cities" ToRole="EventsMain" />
         </EntityType>
         <EntityType Name="Countries">
@@ -471,8 +488,10 @@
           <Property Name="City_Id" Type="Int32" Nullable="false" />
           <Property Name="Photo_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Photo_Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="EventDirection_Id" Type="Int32" />
           <NavigationProperty Name="Cities" Relationship="Self.FK_EventsMain_Cities" FromRole="EventsMain" ToRole="Cities" />
           <NavigationProperty Name="EventNames" Relationship="Self.FK_EventsMain_EventNames" FromRole="EventsMain" ToRole="EventNames" />
+          <NavigationProperty Name="UserEventDirections" Relationship="Self.FK_EventsMain_UserEventDirections" FromRole="EventsMain" ToRole="UserEventDirections" />
         </EntityType>
         <EntityType Name="Genders">
           <Key>
@@ -530,6 +549,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="EventsMain" Relationship="Self.FK_EventsMain_UserEventDirections" FromRole="UserEventDirections" ToRole="EventsMain" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_UserEventDirections" FromRole="UserEventDirections" ToRole="Users" />
         </EntityType>
         <EntityType Name="Users">
@@ -640,6 +660,18 @@
             </Principal>
             <Dependent Role="EventsMain">
               <PropertyRef Name="EventName_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventsMain_UserEventDirections">
+          <End Role="UserEventDirections" Type="Self.UserEventDirections" Multiplicity="0..1" />
+          <End Role="EventsMain" Type="Self.EventsMain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserEventDirections">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EventsMain">
+              <PropertyRef Name="EventDirection_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -801,6 +833,10 @@
             <End Role="EventNames" EntitySet="EventNames" />
             <End Role="EventsMain" EntitySet="EventsMain" />
           </AssociationSet>
+          <AssociationSet Name="FK_EventsMain_UserEventDirections" Association="Self.FK_EventsMain_UserEventDirections">
+            <End Role="UserEventDirections" EntitySet="UserEventDirections" />
+            <End Role="EventsMain" EntitySet="EventsMain" />
+          </AssociationSet>
           <AssociationSet Name="FK_Users_Genders" Association="Self.FK_Users_Genders">
             <End Role="Genders" EntitySet="Genders" />
             <End Role="Users" EntitySet="Users" />
@@ -906,6 +942,7 @@
                 <ScalarProperty Name="City_Id" ColumnName="City_Id" />
                 <ScalarProperty Name="Photo_Name" ColumnName="Photo_Name" />
                 <ScalarProperty Name="Photo_Image" ColumnName="Photo_Image" />
+                <ScalarProperty Name="EventDirection_Id" ColumnName="EventDirection_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

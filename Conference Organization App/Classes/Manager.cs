@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +60,48 @@ namespace Conference_Organization_App.Classes
         public static void ResetBlock()
         {
             BlockDuration = 10; // Сброс продолжительности блокировки
+        }
+
+        public static void GetImageDataForEvents()
+        {
+            try
+            {
+                var list = Data.DB_Entities.GetContext().EventsMain.ToList();
+                foreach (var item in list)
+                {
+                    string path = Directory.GetCurrentDirectory() + @"\img\" + item.Photo_Name.ToString();
+                    if (File.Exists(path))
+                    {
+                        item.Photo_Image = File.ReadAllBytes(path);
+                    }
+                }
+                Data.DB_Entities.GetContext().SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+            }
+        }
+
+        public static void GetImageDataForUsers()
+        {
+            try
+            {
+                var list = Data.DB_Entities.GetContext().Users.ToList();
+                foreach (var item in list)
+                {
+                    string path = Directory.GetCurrentDirectory() + @"\img\" + item.Photo_Name;
+                    if (File.Exists(path))
+                    {
+                        item.Photo_Image = File.ReadAllBytes(path);
+                    }
+                }
+                Data.DB_Entities.GetContext().SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+            }
         }
     }
 }

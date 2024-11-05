@@ -21,8 +21,10 @@ namespace Conference_Organization_App.Data
         public int City_Id { get; set; }
         public string Photo_Name { get; set; }
         public byte[] Photo_Image { get; set; }
+        public Nullable<int> EventDirection_Id { get; set; }
     
         public virtual Cities Cities { get; set; }
         public virtual EventNames EventNames { get; set; }
+        public virtual UserEventDirections UserEventDirections { get; set; }
     }
 }

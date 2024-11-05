@@ -15,11 +15,10 @@ namespace Conference_Organization_App.Data
     
     public partial class DB_Entities : DbContext
     {
-
         private static DB_Entities _context;
         public static DB_Entities GetContext()
         {
-            if ( _context == null)
+            if (_context == null)
             {
                 _context = new DB_Entities();
             }

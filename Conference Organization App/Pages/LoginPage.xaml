@@ -10,10 +10,15 @@
 
     <Grid>
 
-        <StackPanel VerticalAlignment="Top" Margin="0,80,0,0" HorizontalAlignment="Center" Width="250">
-            <Label FontSize="20" Content="Логин:" Height="35"></Label>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" VerticalAlignment="Top" Margin="0,80,0,0" HorizontalAlignment="Center" Width="250">
+            <Label FontSize="20" Content="Логин:" Height="35" Width="150"></Label>
             <TextBox x:Name="loginBox" Height="25" Margin="0,0,0,10"></TextBox>
-            <Label FontSize="20" Content="Пароль:" Height="35"></Label>
+            <Label FontSize="20" Content="Пароль:" Height="35" Width="150"></Label>
             <TextBox Height="25" x:Name="passwordBox"></TextBox>
             
             <!-- Captcha elements -->
@@ -24,6 +29,7 @@
             
             <Button x:Name="applyBtn" Width="150" Height="25" Margin="0,25,0,0" Content="Подтвердить" Click="applyBtn_Click"></Button>
         </StackPanel>
-        
+
+        <Button Grid.Row="1" x:Name="backBtn" Content="Назад" Width="170" HorizontalAlignment="Left"></Button>
     </Grid>
 </Page>

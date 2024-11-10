@@ -21,18 +21,21 @@
                      HorizontalAlignment="Center" 
                      Margin="0,0,450,0" 
                      Width="270" 
-                     VerticalAlignment="Center"></TextBox>
+                     VerticalAlignment="Center"
+                     TextChanged="findByTextBox_TextChanged"></TextBox>
             <ComboBox x:Name="findByComboBox" 
                       HorizontalAlignment="Center" 
                       Margin="0,0,-80,0" 
                       VerticalAlignment="Center" 
                       DisplayMemberPath="name" 
-                      SelectedValuePath="id"></ComboBox>
+                      SelectedValuePath="id"
+                      SelectionChanged="findByComboBox_SelectionChanged"></ComboBox>
             <DatePicker x:Name="datePicker" 
                         Width="160" 
                         VerticalAlignment="Center" 
                         HorizontalAlignment="Center" 
-                        Margin="0,0,-500,0"></DatePicker>
+                        Margin="0,0,-500,0"
+                        SelectedDateChanged="datePicker_SelectedDateChanged"></DatePicker>
 
         </Grid>
 
@@ -88,8 +91,9 @@
             
 
             <Button x:Name="authBtn"
+                Click="authBtn_Click"
                 Grid.Row="1" 
-                Content="Войти" 
+                Content="Авторизоваться" 
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 Height="40"

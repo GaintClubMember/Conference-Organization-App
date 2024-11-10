@@ -21,6 +21,8 @@ namespace Conference_Organization_App.Classes
         public static bool isBlocked { get; set; }
 
 
+        public static string globalName;
+        public static string globalGender;
 
         public static DispatcherTimer BlockTimer { get; private set; }
         public static int BlockDuration { get; private set; } = 10;

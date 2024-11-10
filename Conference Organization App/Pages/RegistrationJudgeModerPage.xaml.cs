@@ -24,6 +24,9 @@ namespace Conference_Organization_App.Pages
     {
         bool attachToEvent = false;
         bool isPasswordVisible = false;
+
+        Data.Users newUser;
+
         public RegistrationJudgeModerPage()
         {
             InitializeComponent();
@@ -111,6 +114,7 @@ namespace Conference_Organization_App.Pages
                     }
                     else
                     {
+                        // add to DB?
                         errorsString.AppendLine("event name already exist");
                         //MessageBox.Show("already exist", "EventNames", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
@@ -138,6 +142,7 @@ namespace Conference_Organization_App.Pages
                     string patronymic = Parts[2];
 
                     errorsString.AppendLine($"{lastname} | {name} | {patronymic}");
+                    // add to DB
                 }
                 else
                 {
@@ -159,6 +164,7 @@ namespace Conference_Organization_App.Pages
                 int genderId = (int)genderComboBox.SelectedValue;
                 string genderName = genderComboBox.Text;
                 errorsString.AppendLine($"gender: {genderName} id: {genderId}");
+                // add to DB
             }
 
             // Roles id name Check
@@ -171,12 +177,14 @@ namespace Conference_Organization_App.Pages
                 int roleId = (int)roleComboBox.SelectedValue;
                 string roleName = roleComboBox.Text;
                 errorsString.AppendLine($"role {roleName} id {roleId}");
+                // add to DB
             }
 
             // Users email Check
             if (!String.IsNullOrEmpty(emailBox.Text))
             {
                 errorsString.AppendLine($"email is {emailBox.Text}");
+                // add to DB
             }
             else
             {
@@ -184,7 +192,7 @@ namespace Conference_Organization_App.Pages
             }
 
             // Users phone Check
-            // more complicated check needed (like FIO check but for phone form
+            // more complicated check needed (like FIO check but for phone form)
 
             //Users image Check
             // not required
@@ -195,12 +203,17 @@ namespace Conference_Organization_App.Pages
             {
                 if (!String.IsNullOrEmpty(passwordTextBox.Text) && !String.IsNullOrEmpty(passwordTextBox2.Text))
                 {
+                    if (passwordBox.Password.Length < 6 || passwordBox2.Password.Length < 6)
+                    {
+                        errorsString.AppendLine($"password length must be more than 5:{passwordBox.Password.Length} 2:{passwordBox2.Password.Length}");
+                    }
                     // password visible
                     if (passwordTextBox.Text == passwordTextBox2.Text)
                     {
                         errorsString.AppendLine($"visible passwords match 1:{passwordTextBox.Text} 2:{passwordTextBox2.Text}");
+                        // add to DB
                     }
-                    else
+                    if (passwordTextBox.Text != passwordTextBox2.Text)
                     {
                         errorsString.AppendLine("visible passwords doesnt match");
                     }
@@ -214,12 +227,17 @@ namespace Conference_Organization_App.Pages
             {
                 if (!String.IsNullOrEmpty(passwordBox.Password) && !String.IsNullOrEmpty(passwordBox2.Password))
                 {
+                    if(passwordBox.Password.Length < 6 || passwordBox2.Password.Length < 6)
+                    {
+                        errorsString.AppendLine($"password length must be more than 5:{passwordBox.Password.Length} 2:{passwordBox2.Password.Length}");
+                    }
                     // password visible
                     if (passwordBox.Password == passwordBox2.Password)
                     {
                         errorsString.AppendLine($"invisible passwords match 1:{passwordBox.Password} 2:{passwordBox2.Password}");
+                        // add to DB
                     }
-                    else
+                    if (passwordBox.Password != passwordBox2.Password)
                     {
                         errorsString.AppendLine("invisible passwords doesnt match");
                     }
@@ -229,23 +247,14 @@ namespace Conference_Organization_App.Pages
                     errorsString.AppendLine("invisible passwords is empty");
                 }
             }
-             
-
             // Show errors
             MessageBox.Show($"{errorsString.ToString()}", "Errors", MessageBoxButton.OK, MessageBoxImage.Stop);
-
         }
 
         private bool imageProcessor()
         {
-            if ("asda" == "asda")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            // image upload to db
+            return true;
         }
 
         private void visiblePassword_Checked(object sender, RoutedEventArgs e)
@@ -285,7 +294,7 @@ namespace Conference_Organization_App.Pages
         {
             try
             {
-                Classes.Manager.frameMaster.Navigate(new Pages.RegistrationJudgeModerPage());
+                Classes.Manager.frameMaster.Navigate(new Pages.Pages_By_Role.OrganizatorPage(Classes.Manager.globalName, Classes.Manager.globalGender));
             }
             catch (Exception ex)
             {

@@ -42,7 +42,7 @@
                     <Label  x:Name="eventLabel" Content="Мероприятие" HorizontalAlignment="Right" Margin="0,35,5,5"></Label>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
-                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center" IsEnabled="False" Text="AUTO"></TextBox>
+                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center" IsEnabled="False" Text="AUTO" x:Name="idBox"></TextBox>
                     <TextBox x:Name="fioBox" HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
                     <ComboBox x:Name="genderComboBox" SelectedValuePath="id" DisplayMemberPath="name" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></ComboBox>
                     <ComboBox x:Name="roleComboBox" SelectedValuePath="id" DisplayMemberPath="name" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center" SelectionChanged="roleComboBox_SelectionChanged"></ComboBox>

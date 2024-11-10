@@ -29,6 +29,9 @@ namespace Conference_Organization_App.Pages.Pages_By_Role
         {
             InitializeComponent();
 
+            Classes.Manager.globalName = name;
+            Classes.Manager.globalGender = gender;
+
             try
             {
                 _name = name;

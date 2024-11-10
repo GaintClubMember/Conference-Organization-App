@@ -37,12 +37,98 @@ namespace Conference_Organization_App.Pages
 
         private void loadComboBox()
         {
-            findByComboBox.ItemsSource = Data.DB_Entities.GetContext().UsersDirections.ToList();
+            var combo = Data.DB_Entities.GetContext().UserEventDirections.ToList();
+            combo.Add(new Data.UserEventDirections { name = "Все" });
+            findByComboBox.ItemsSource = combo;
         }
 
         private void loadListView()
         {
             listView.ItemsSource = Data.DB_Entities.GetContext().EventsMain.ToList();
+        }
+
+        private void findByTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                if (findByTextBox.Text.Length > 0)
+                {
+                    listView.ItemsSource = (from item in Data.DB_Entities.GetContext().EventsMain
+                                            where item.EventNames.Name.ToLower().Contains(findByTextBox.Text.ToLower()) ||
+                                            item.CountOfDays.ToString().ToLower().Contains(findByTextBox.Text.ToLower()) ||
+                                            item.Cities.Name.ToLower().ToString().Contains(findByTextBox.Text.ToLower()) ||
+                                            item.UserEventDirections.name.ToLower().ToString().Contains(findByTextBox.Text.ToLower())
+                                            select item).ToList();
+                }
+                else
+                {
+                    loadListView();
+                }
+            }
+            catch(Exception ex)
+            {
+                return;
+            }
+        }
+
+        private void findByComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (findByComboBox.SelectedValue.ToString() != "0")
+                {
+                    MessageBox.Show($"selected Value {findByComboBox.SelectedValue.ToString()}", "asdsad", MessageBoxButton.OK, MessageBoxImage.Hand);
+
+                    listView.ItemsSource = Data.DB_Entities.GetContext().EventsMain.Where(d => d.EventName_Id == findByComboBox.SelectedIndex+1).ToList();
+                }
+                else
+                {
+                    loadListView();
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
+
+        private void datePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                DateTime? selectedDate = datePicker.SelectedDate;
+
+                if (selectedDate.HasValue)
+                {
+                    string dateStr = selectedDate.Value.ToString("yyyy-MM-dd");
+
+                    MessageBox.Show($"Выбранная дата: {dateStr}", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    var selectedByDateTable = Data.DB_Entities.GetContext().EventsMain.Where(d => d.Date.ToString() == dateStr.ToString()).ToList();
+
+                    listView.ItemsSource = selectedByDateTable;
+                }
+                else
+                {
+                    loadListView();
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
+
+        private void authBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Classes.Manager.frameMaster.Navigate(new Pages.LoginPage());
+            }
+            catch(Exception ex)
+            {
+                return;
+            }
         }
     }
 }

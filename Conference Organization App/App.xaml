@@ -23,10 +23,6 @@
             <Setter Property="FontSize" Value="13"></Setter>
         </Style>
 
-        <Style TargetType="ComboBox">
-            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-        </Style>
 
     </Application.Resources>
 </Application>

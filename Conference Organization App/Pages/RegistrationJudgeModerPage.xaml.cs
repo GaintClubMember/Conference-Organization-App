@@ -36,53 +36,35 @@ namespace Conference_Organization_App.Pages
             idBox.Text = Data.DB_Entities.GetContext().Users.Max(d => d.id)+1.ToString();
         }
 
+
+        // EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS 
+        // EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS 
+        // EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS 
+
         private void attachToEventCheck_Checked(object sender, RoutedEventArgs e)
         {
-            attachToEvent = true;
-            ShowElements();
+            eventBox.Visibility = Visibility.Visible;
+            eventLabel.Visibility = Visibility.Visible;
+            //attachToEvent = true;
+            //ShowElements();
         }
 
         private void attachToEventCheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            attachToEvent = false;
-            HideElements();
-        }
-        private void HideElements()
-        {
             eventBox.Visibility = Visibility.Hidden;
             eventLabel.Visibility = Visibility.Hidden;
-            eventSearchMenu.Visibility = Visibility.Collapsed;
+            //attachToEvent = false;
+            //HideElements();
         }
-        private void ShowElements()
+        
+        //string selectedName;
+        private void directionsSearchMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            eventBox.Visibility = Visibility.Visible;
-            eventLabel.Visibility = Visibility.Visible;
-            eventSearchMenu.Visibility = Visibility.Visible;
-
-            eventSearchMenu.ItemsSource = Data.DB_Entities.GetContext().EventNames.ToList();
-        }
-        private void LoadComboBoxes()
-        {
-            if (String.IsNullOrEmpty(eventBox.Text))
-            {
-                genderComboBox.ItemsSource = Data.DB_Entities.GetContext().Genders.ToList();
-                roleComboBox.ItemsSource = Data.DB_Entities.GetContext().Roles.ToList();
-            }
-            else
-            {
-                eventSearchMenu.ItemsSource = (Data.DB_Entities.GetContext().EventNames.Where(d => d.Name == eventBox.Text)).ToList();
-            }
-        }
-
-
-        string selectedName;
-        private void eventSearchMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedItem = eventSearchMenu.SelectedItem;
+            var selectedItem = directionSearchMenu.SelectedItem;
             if (selectedItem != null)
             {
-                var selectedEvent = (EventNames)selectedItem;
-                eventBox.Text = $"{selectedEvent.Name.ToString()}";
+                var selectedEvent = (UserEventDirections)selectedItem; //////////////////////////////////////////////////////////////////////////////////
+                directionBox.Text = $"{selectedEvent.name.ToString()}";
             }
             else
             {
@@ -90,13 +72,6 @@ namespace Conference_Organization_App.Pages
             }
         }
 
-        private void eventBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            eventSearchMenu.ItemsSource = (from item in Data.DB_Entities.GetContext().EventNames
-             where item.Name.ToLower().Contains(eventBox.Text) ||
-             item.id.ToString().Contains(eventBox.Text)
-             select item).ToList();
-        }
 
         private void okBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -106,21 +81,23 @@ namespace Conference_Organization_App.Pages
             if (attachToEvent == true)
             {
                 // EventNames Name Check
-                if (!String.IsNullOrEmpty(eventBox.Text))
+                if (String.IsNullOrEmpty(eventBox.Text))
                 {
-                    if (Data.DB_Entities.GetContext().EventNames.Any(d => d.Name == eventBox.Text) == false)
-                    {
-                        errorsString.AppendLine("event name doesnt exist");
-                    }
-                    else
-                    {
-                        // add to DB?
-                        errorsString.AppendLine("event name already exist");
-                    }
+                    //if (Data.DB_Entities.GetContext().EventNames.Any(d => d.Name == eventBox.Text) == false)
+                    //{
+                    //    errorsString.AppendLine("event name doesnt exist");
+                    //}
+                    //else
+                    //{
+                    //    // add to DB?
+                    //    errorsString.AppendLine("event name already exist");
+                    //}
+                    errorsString.AppendLine("event name is null");
+
                 }
                 else
                 {
-                    errorsString.AppendLine("event name is null");
+
                 }
             }
             else
@@ -157,37 +134,17 @@ namespace Conference_Organization_App.Pages
             {
                 errorsString.AppendLine("gender is null");
             }
-            else
-            {
-                int genderId = (int)genderComboBox.SelectedValue;
-                string genderName = genderComboBox.Text;
-                errorsString.AppendLine($"gender: {genderName} id: {genderId}");
-                // add to DB
-            }
-
             // Roles id name Check
             if (roleComboBox.SelectedValue == null)
             {
                 errorsString.AppendLine("role is null");
             }
-            else
-            {
-                int roleId = (int)roleComboBox.SelectedValue;
-                string roleName = roleComboBox.Text;
-                errorsString.AppendLine($"role {roleName} id {roleId}");
-                // add to DB
-            }
-
             // Users email Check
             if (String.IsNullOrEmpty(emailBox.Text))
             {
                 errorsString.AppendLine("email is null");
                 // add to DB
             }
-
-            // Users phone Check
-            // more complicated check needed (like FIO check but for phone form)
-
 
             //Users image Check
             // not required
@@ -246,9 +203,6 @@ namespace Conference_Organization_App.Pages
             MessageBox.Show($"{errorsString.ToString()}", "Errors", MessageBoxButton.OK, MessageBoxImage.Stop);
         }
 
-
-
-
         private void phoneBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Get the raw text
@@ -281,18 +235,6 @@ namespace Conference_Organization_App.Pages
             // Check if the input is a digit
             e.Handled = !IsTextAllowed(e.Text);
         }
-        private static bool IsTextAllowed(string text)
-        {
-            return Regex.IsMatch(text, @"^[0-9]+$"); // Allows only digits
-        }
-
-
-
-        private bool imageProcessor()
-        {
-            // image upload to db
-            return true;
-        }
 
         private void visiblePassword_Checked(object sender, RoutedEventArgs e)
         {
@@ -322,9 +264,24 @@ namespace Conference_Organization_App.Pages
             passwordBox2.Password = passwordTextBox2.Text;
         }
 
-        private void roleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void directionBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            directionSearchMenu.ItemsSource = (from item in Data.DB_Entities.GetContext().UserEventDirections
+                                               where item.name.ToLower().Contains(directionBox.Text) ||
+                                               item.id.ToString().Contains(directionBox.Text)
+                                               select item).ToList();
+        }
 
+        private void directionBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            attachToEvent = true;
+            ShowElements();
+        }
+
+        private void directionBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            attachToEvent = false;
+            HideElements();
         }
 
         private void cancelBtn_Click(object sender, RoutedEventArgs e)
@@ -337,6 +294,109 @@ namespace Conference_Organization_App.Pages
             {
                 return;
             }
+        }
+
+        // METHODS  METHODS  METHODS  METHODS  METHODS  METHODS  METHODS  METHODS 
+        // METHODS  METHODS  METHODS  METHODS  METHODS  METHODS  METHODS  METHODS 
+        // METHODS  METHODS  METHODS  METHODS  METHODS  METHODS  METHODS  METHODS 
+
+        private int errorsCount()
+        {
+            StringBuilder errorsString = new StringBuilder;
+
+            if (isPasswordVisible == true)
+            {
+                if (!String.IsNullOrEmpty(passwordTextBox.Text) && !String.IsNullOrEmpty(passwordTextBox2.Text))
+                {
+                    if (passwordBox.Password.Length < 6 || passwordBox2.Password.Length < 6)
+                    {
+                        errorsString.AppendLine($"password length must be more than 5:{passwordBox.Password.Length} 2:{passwordBox2.Password.Length}");
+                    }
+                    // password visible
+                    if (passwordTextBox.Text == passwordTextBox2.Text)
+                    {
+                        errorsString.AppendLine($"visible passwords match 1:{passwordTextBox.Text} 2:{passwordTextBox2.Text}");
+                        // add to DB
+                    }
+                    if (passwordTextBox.Text != passwordTextBox2.Text)
+                    {
+                        errorsString.AppendLine("visible passwords doesnt match");
+                    }
+                }
+                else
+                {
+                    errorsString.AppendLine("visible passwords is empty");
+                }
+            }
+            else if (isPasswordVisible == false)
+            {
+                if (!String.IsNullOrEmpty(passwordBox.Password) && !String.IsNullOrEmpty(passwordBox2.Password))
+                {
+                    if (passwordBox.Password.Length < 6 || passwordBox2.Password.Length < 6)
+                    {
+                        errorsString.AppendLine($"password length must be more than 5:{passwordBox.Password.Length} 2:{passwordBox2.Password.Length}");
+                    }
+                    // password visible
+                    if (passwordBox.Password == passwordBox2.Password)
+                    {
+                        errorsString.AppendLine($"invisible passwords match 1:{passwordBox.Password} 2:{passwordBox2.Password}");
+                        // add to DB
+                    }
+                    if (passwordBox.Password != passwordBox2.Password)
+                    {
+                        errorsString.AppendLine("invisible passwords doesnt match");
+                    }
+                }
+                else
+                {
+                    errorsString.AppendLine("invisible passwords is empty");
+                }
+            }
+
+            return errorsString.Length;
+        }
+
+        private void HideElements()
+        {
+            eventBox.Visibility = Visibility.Hidden;
+            eventLabel.Visibility = Visibility.Hidden;
+            directionSearchMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void ShowElements()
+        {
+            eventBox.Visibility = Visibility.Visible;
+            eventLabel.Visibility = Visibility.Visible;
+            directionSearchMenu.Visibility = Visibility.Visible;
+
+        }
+
+        private void LoadComboBoxes()
+        {
+            eventBox.ItemsSource = Data.DB_Entities.GetContext().EventNames.ToList();
+            directionSearchMenu.ItemsSource = Data.DB_Entities.GetContext().UserEventDirections.ToList();
+            genderComboBox.ItemsSource = Data.DB_Entities.GetContext().Genders.ToList();
+            roleComboBox.ItemsSource = Data.DB_Entities.GetContext().Roles.ToList();
+            //if (String.IsNullOrEmpty(eventBox.Text))
+            //{
+            //    genderComboBox.ItemsSource = Data.DB_Entities.GetContext().Genders.ToList();
+            //    roleComboBox.ItemsSource = Data.DB_Entities.GetContext().Roles.ToList();
+            //}
+            //else
+            //{
+            //    directionSearchMenu.ItemsSource = Data.DB_Entities.GetContext().UserEventDirections.ToList();
+            //}
+        }
+
+        private bool imageProcessor()
+        {
+            // image upload to db
+            return true;
+        }
+
+        private static bool IsTextAllowed(string text)
+        {
+            return Regex.IsMatch(text, @"^[0-9]+$"); // Allows only digits
         }
     }
 }

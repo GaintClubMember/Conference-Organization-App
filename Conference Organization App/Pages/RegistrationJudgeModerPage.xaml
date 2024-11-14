@@ -38,22 +38,17 @@
                     <Label Content="Email:" HorizontalAlignment="Right" Margin="0,0,5,5" Height="30"></Label>
                     <Label Content="Телефон" HorizontalAlignment="Right" Margin="0,0,5,5" Height="30"></Label>
                     <Label Content="Направление" HorizontalAlignment="Right" Margin="0,0,5,5" Height="30"></Label>
-
-                    <Label  x:Name="eventLabel" Content="Мероприятие" HorizontalAlignment="Right" Margin="0,35,5,5"></Label>
+                    <Label  x:Name="eventLabel" Visibility="Hidden" Content="Мероприятие" HorizontalAlignment="Right" Margin="0,35,5,5"></Label>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center" IsEnabled="False" Text="AUTO" x:Name="idBox"></TextBox>
                     <TextBox x:Name="fioBox" HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
                     <ComboBox x:Name="genderComboBox" SelectedValuePath="id" DisplayMemberPath="name" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></ComboBox>
-                    <ComboBox x:Name="roleComboBox" SelectedValuePath="id" DisplayMemberPath="name" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center" SelectionChanged="roleComboBox_SelectionChanged"></ComboBox>
+                    <ComboBox x:Name="roleComboBox" SelectedValuePath="id" DisplayMemberPath="name" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></ComboBox>
                     <TextBox x:Name="emailBox"  HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
                     <TextBox x:Name="phoneBox" PreviewTextInput="phoneBox_PreviewTextInput" TextChanged="phoneBox_TextChanged" HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
-                    <TextBox x:Name="directionBox" HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
-                    
-                    <CheckBox x:Name="attachToEventCheck" Checked="attachToEventCheck_Checked" Unchecked="attachToEventCheck_Unchecked" HorizontalAlignment="Left" Margin="5,0,0,0" Content="Прикрепить к мероприятию"></CheckBox>
-
-                    <TextBox x:Name="eventBox" Text="{Binding Name}" HorizontalAlignment="Left" Height="30" Width="190" Margin="5,20,0,0" TextChanged="eventBox_TextChanged"></TextBox>
-                    <ListView x:Name="eventSearchMenu" Width="190" Height="115" Margin="5,0,0,0" SelectionChanged="eventSearchMenu_SelectionChanged">
+                    <TextBox x:Name="directionBox" GotFocus="directionBox_GotFocus"  LostFocus="directionBox_LostFocus" TextChanged="directionBox_TextChanged"  HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
+                    <ListView x:Name="directionSearchMenu" Width="190" Height="115" Margin="5,0,0,0" SelectionChanged="directionsSearchMenu_SelectionChanged">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -62,11 +57,15 @@
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" x:Name="eventSearchItem_Id" Width="20" Text="{Binding id}"></TextBlock>
-                                    <TextBlock Grid.Column="1" x:Name="eventSearchItem" Width="190" TextWrapping="Wrap" Text="{Binding Name}"></TextBlock>
+                                    <TextBlock Grid.Column="1" x:Name="eventSearchItem" Width="190" TextWrapping="Wrap" Text="{Binding name}"></TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+                    <CheckBox x:Name="attachToEventCheck" Checked="attachToEventCheck_Checked" Unchecked="attachToEventCheck_Unchecked" HorizontalAlignment="Left" Margin="5,0,0,0" Content="Прикрепить к мероприятию"></CheckBox>
+
+                    <ComboBox x:Name="eventBox" Visibility="Hidden" DisplayMemberPath="Name" HorizontalAlignment="Left" Height="30" Width="190" Margin="5,20,0,0"></ComboBox>
+                    
                 </StackPanel>
             </Grid>
             

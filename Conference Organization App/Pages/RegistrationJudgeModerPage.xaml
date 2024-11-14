@@ -47,7 +47,7 @@
                     <ComboBox x:Name="genderComboBox" SelectedValuePath="id" DisplayMemberPath="name" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></ComboBox>
                     <ComboBox x:Name="roleComboBox" SelectedValuePath="id" DisplayMemberPath="name" Width="190" Height="30" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center" SelectionChanged="roleComboBox_SelectionChanged"></ComboBox>
                     <TextBox x:Name="emailBox"  HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
-                    <TextBox HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
+                    <TextBox x:Name="phoneBox" PreviewTextInput="phoneBox_PreviewTextInput" TextChanged="phoneBox_TextChanged" HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
                     <TextBox x:Name="directionBox" HorizontalAlignment="Left" Height="30" Width="190" Margin="5,0,0,5" VerticalContentAlignment="Center"></TextBox>
                     
                     <CheckBox x:Name="attachToEventCheck" Checked="attachToEventCheck_Checked" Unchecked="attachToEventCheck_Unchecked" HorizontalAlignment="Left" Margin="5,0,0,0" Content="Прикрепить к мероприятию"></CheckBox>

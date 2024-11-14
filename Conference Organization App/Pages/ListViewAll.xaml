@@ -72,7 +72,7 @@
                             </Grid.RowDefinitions>
                             <TextBlock x:Name="eventNameLabel" 
                                        Grid.Row="0" 
-                                       Text="{Binding EventNames.Name}" 
+                                       Text="{Binding EventNames.Name}"  
                                        TextWrapping="Wrap"></TextBlock>
                             <TextBlock x:Name="eventDirectionLabel" 
                                        Grid.Row="1" 
@@ -80,7 +80,7 @@
                                        TextWrapping="Wrap"></TextBlock>
                             <TextBlock x:Name="eventDateLabel" 
                                        Grid.Row="2" 
-                                       Text="{Binding EventsMain.Date}"></TextBlock>
+                                       Text="{Binding Date}"></TextBlock>
                         </Grid>
                     </Grid>
                 </DataTemplate>

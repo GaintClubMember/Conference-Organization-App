@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,7 +33,7 @@ namespace Conference_Organization_App.Pages
             InitializeComponent();
             HideElements();
             LoadComboBoxes();
-
+            idBox.Text = Data.DB_Entities.GetContext().Users.Max(d => d.id)+1.ToString();
         }
 
         private void attachToEventCheck_Checked(object sender, RoutedEventArgs e)
@@ -110,13 +111,11 @@ namespace Conference_Organization_App.Pages
                     if (Data.DB_Entities.GetContext().EventNames.Any(d => d.Name == eventBox.Text) == false)
                     {
                         errorsString.AppendLine("event name doesnt exist");
-                        //MessageBox.Show("doesnt exist", "EventNames", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else
                     {
                         // add to DB?
                         errorsString.AppendLine("event name already exist");
-                        //MessageBox.Show("already exist", "EventNames", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
@@ -126,10 +125,9 @@ namespace Conference_Organization_App.Pages
             }
             else
             {
-                // notrhing
+                // nothing
             }
 
-            // Users Lastname Name Patronymic Check
             if (!String.IsNullOrEmpty(fioBox.Text))
             {
                 string fioBoxText = fioBox.Text.Trim();
@@ -181,18 +179,15 @@ namespace Conference_Organization_App.Pages
             }
 
             // Users email Check
-            if (!String.IsNullOrEmpty(emailBox.Text))
-            {
-                errorsString.AppendLine($"email is {emailBox.Text}");
-                // add to DB
-            }
-            else
+            if (String.IsNullOrEmpty(emailBox.Text))
             {
                 errorsString.AppendLine("email is null");
+                // add to DB
             }
 
             // Users phone Check
             // more complicated check needed (like FIO check but for phone form)
+
 
             //Users image Check
             // not required
@@ -250,6 +245,48 @@ namespace Conference_Organization_App.Pages
             // Show errors
             MessageBox.Show($"{errorsString.ToString()}", "Errors", MessageBoxButton.OK, MessageBoxImage.Stop);
         }
+
+
+
+
+        private void phoneBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Get the raw text
+            string input = phoneBox.Text;
+
+            // Clean input by removing unwanted characters
+            input = input.Replace("+7", "").Replace("-", "").Replace(" ", "").Trim();
+
+            // Only format if there's any input
+            if (input.Length > 0)
+            {
+                // Start with country code
+                string formattedText = "+7 ";
+
+                // Adding formatting
+                if (input.Length > 0) formattedText += input.Substring(0, Math.Min(3, input.Length)) + "-"; // First 3 digits
+                if (input.Length > 3) formattedText += input.Substring(3, Math.Min(3, input.Length - 3)) + "-"; // Next 3 digits
+                if (input.Length > 6) formattedText += input.Substring(6, Math.Min(2, input.Length - 6)) + "-"; // Next 2 digits
+                if (input.Length > 8) formattedText += input.Substring(8, Math.Min(2, input.Length - 8)); // Last 2 digits
+
+                // Temporarily remove the event handler to avoid recursion
+                phoneBox.TextChanged -= phoneBox_TextChanged;
+                phoneBox.Text = formattedText.TrimEnd('-'); // Remove trailing hyphen if present
+                phoneBox.CaretIndex = phoneBox.Text.Length; // Move the caret to the end
+                phoneBox.TextChanged += phoneBox_TextChanged; // Reattach event handler
+            }
+        }
+        private void phoneBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            // Check if the input is a digit
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+        private static bool IsTextAllowed(string text)
+        {
+            return Regex.IsMatch(text, @"^[0-9]+$"); // Allows only digits
+        }
+
+
 
         private bool imageProcessor()
         {

@@ -19,10 +19,8 @@ namespace Conference_Organization_App.Pages
         {
             InitializeComponent();
 
-            // Sample login and password, should be removed
-            loginBox.Text = "9204927370";
+            loginBox.Text = "26";
             passwordBox.Text = "bBFR23s95s";
-
         }
 
         private void checkAuth()
@@ -32,10 +30,10 @@ namespace Conference_Organization_App.Pages
                 string login = loginBox.Text;
                 string password = passwordBox.Text;
 
-                if (Data.DB_Entities.GetContext().Users.Any(d => d.Phone == login && d.Password == password))
+                if (Data.DB_Entities.GetContext().Users.Any(d => d.id.ToString() == login && d.Password == password))
                 {
                     Manager.currentOrSavedUser = Data.DB_Entities.GetContext().Users
-                        .FirstOrDefault(d => d.Phone == login && d.Password == password);
+                        .FirstOrDefault(d => d.id.ToString() == login && d.Password == password);
 
                     string role = Manager.currentOrSavedUser.Roles.name;
 
@@ -48,13 +46,13 @@ namespace Conference_Organization_App.Pages
                             Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage(name, gender));
                             break;
                         case "Участник":
-                            //Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage());
+                            Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
                             break;
                         case "Жюри":
-                            //Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage());
+                            Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
                             break;
                         case "Модератор":
-                            //Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage());
+                            Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
                             break;
                     }
 
@@ -71,16 +69,13 @@ namespace Conference_Organization_App.Pages
             {
                 if (Manager.failedAuthCount >= 3)
                 {
-                    // If failed attempts reach 3 or more, verify CAPTCHA
                     if (!verifyCaptcha(captchaInputBox.Text) == true)
                     {
-                        // block boxes && start timer
                         disableBoxes();
                         MessageBox.Show("Неправильная каптча", "Блокировака", MessageBoxButton.OK, MessageBoxImage.Hand);
                     }
                     else
                     {
-                        // login tree
                         string login = loginBox.Text;
                         string password = passwordBox.Text;
 
@@ -100,13 +95,13 @@ namespace Conference_Organization_App.Pages
                                     Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage(name, gender));
                                     break;
                                 case "Участник":
-                                    //Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage());
+                                    Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
                                     break;
                                 case "Жюри":
-                                    //Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage());
+                                    Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
                                     break;
                                 case "Модератор":
-                                    //Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage());
+                                    Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
                                     break;
                             }
                             MessageBox.Show("Успешная авторизация", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -147,6 +142,8 @@ namespace Conference_Organization_App.Pages
                 loginBox.IsEnabled = true;
                 passwordBox.IsEnabled = true;
                 MessageBox.Show("Можете попробовать снова", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                captchaInputBox.Text = "";
+                generateCaptcha();
             }
         }
 
@@ -162,9 +159,19 @@ namespace Conference_Organization_App.Pages
 
         private void generateCaptcha()
         {
-            int randomCaptcha = randomNumber.Next(1, 2);
-            string imagePath = $"C:/Users/User/source/repos/Conference Organization App/Conference Organization App/Resources/Captcha/Captcha1.png";
-            validCaptcha = randomCaptcha.ToString();
+            int randomCaptcha = randomNumber.Next(0, 2);
+            string imagePath;
+            MessageBox.Show($"{randomCaptcha.ToString()}", "!!!", MessageBoxButton.OK, MessageBoxImage.Hand);
+            if (randomCaptcha == 1)
+            {
+                imagePath = $"C:/Users/User/source/repos/Conference Organization App/Conference Organization App/Resources/Captcha/captcha_1.png";
+                validCaptcha = "1acr";
+            }
+            else
+            {
+                imagePath = $"C:/Users/User/source/repos/Conference Organization App/Conference Organization App/Resources/Captcha/captcha_2.png";
+                validCaptcha = "5ik6";
+            }
 
             if (File.Exists(imagePath))
             {

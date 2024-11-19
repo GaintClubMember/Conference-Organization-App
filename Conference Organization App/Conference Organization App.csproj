@@ -143,6 +143,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Pages_By_Role\BlankPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Pages_By_Role\OrganizatorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -161,6 +165,9 @@
     </Compile>
     <Compile Include="Pages\MyProfilePage.xaml.cs">
       <DependentUpon>MyProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Pages_By_Role\BlankPage.xaml.cs">
+      <DependentUpon>BlankPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Pages_By_Role\OrganizatorPage.xaml.cs">
       <DependentUpon>OrganizatorPage.xaml</DependentUpon>
@@ -203,7 +210,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\DefaultImage.png" />
-    <Resource Include="Resources\Captcha\Captcha1.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -219,6 +225,8 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Captcha\captcha_1.png" />
+    <Resource Include="Resources\Captcha\captcha_2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" VerticalAlignment="Top" Margin="0,80,0,0" HorizontalAlignment="Center" Width="250">
-            <Label FontSize="20" Content="Логин:" Height="35" Width="150"></Label>
+            <Label FontSize="20" Content="ID:" Height="35" Width="150"></Label>
             <TextBox x:Name="loginBox" Height="25" Margin="0,0,0,10"></TextBox>
             <Label FontSize="20" Content="Пароль:" Height="35" Width="150"></Label>
             <TextBox Height="25" x:Name="passwordBox"></TextBox>

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Conference_Organization_App.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="800"
-      Title="RegistrationJudgeModerPage">
+      Title="Организация конференций - Регистрация Жюри/модератора">
 
     <Grid>
 
@@ -82,7 +82,7 @@
                     <Label Content="Повторь пароля:" HorizontalAlignment="Right" Margin="0,5,5,5" Height="30"></Label>
                 </StackPanel>
                 <StackPanel Grid.Column="3">
-                    <Image x:Name="imageHolder" Height="200" Width="180" MouseDown="imageHolder_MouseDown" Source="/Resources/Images/DefaultImage.png"></Image>
+                    <Image x:Name="imageHolder" Height="200" Width="180" MouseDown="imageHolder_MouseDown" Source="/Resources/Images/NullStateImage.png"></Image>
                     <PasswordBox x:Name="passwordBox" Height="30" Width="190" HorizontalAlignment="Left" Margin="5,15,0,5" VerticalContentAlignment="Center" Visibility="Visible"></PasswordBox>
                     <TextBox x:Name="passwordTextBox" Height="30" Width="190" HorizontalAlignment="Left" Margin="5,15,0,5" VerticalContentAlignment="Center" Visibility="Collapsed"></TextBox>
                     <PasswordBox x:Name="passwordBox2" Height="30" Width="190" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalContentAlignment="Center"></PasswordBox>

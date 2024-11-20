@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Conference_Organization_App.Pages.Pages_By_Role"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="BlankPage">
+      Title="Организация конференций - Заглушка">
 
     <Grid>
         

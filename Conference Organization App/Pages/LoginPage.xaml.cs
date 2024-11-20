@@ -79,10 +79,10 @@ namespace Conference_Organization_App.Pages
                         string login = loginBox.Text;
                         string password = passwordBox.Text;
 
-                        if (Data.DB_Entities.GetContext().Users.Any(d => d.Phone == login && d.Password == password))
+                        if (Data.DB_Entities.GetContext().Users.Any(d => d.id.ToString() == login && d.Password == password))
                         {
                             Manager.currentOrSavedUser = Data.DB_Entities.GetContext().Users
-                                .FirstOrDefault(d => d.Phone == login && d.Password == password);
+                                .FirstOrDefault(d => d.id.ToString() == login && d.Password == password);
 
                             string role = Manager.currentOrSavedUser.Roles.name;
 

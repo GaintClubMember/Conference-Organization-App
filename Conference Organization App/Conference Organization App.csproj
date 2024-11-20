@@ -225,6 +225,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\NullStateImage.png" />
     <Resource Include="Resources\Captcha\captcha_1.png" />
     <Resource Include="Resources\Captcha\captcha_2.png" />
   </ItemGroup>

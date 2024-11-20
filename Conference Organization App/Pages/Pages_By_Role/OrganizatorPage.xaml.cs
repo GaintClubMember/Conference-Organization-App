@@ -28,7 +28,7 @@ namespace Conference_Organization_App.Pages.Pages_By_Role
         public OrganizatorPage(string name, string gender)
         {
             InitializeComponent();
-
+            DataContext = Classes.Manager.currentOrSavedUser;
             Classes.Manager.globalName = name;
             Classes.Manager.globalGender = gender;
 
@@ -44,7 +44,6 @@ namespace Conference_Organization_App.Pages.Pages_By_Role
                 return;
             }
         }
-
         private void regBtn_Click(object sender, RoutedEventArgs e)
         {
             try

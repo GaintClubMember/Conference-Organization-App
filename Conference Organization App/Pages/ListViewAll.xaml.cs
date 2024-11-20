@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace Conference_Organization_App.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для ListViewAll.xaml
-    /// </summary>
     public partial class ListViewAll : Page
     {
         public ListViewAll()
@@ -77,8 +74,6 @@ namespace Conference_Organization_App.Pages
             {
                 if (findByComboBox.SelectedValue.ToString() != "0")
                 {
-                    MessageBox.Show($"selected Value {findByComboBox.SelectedValue.ToString()}", "asdsad", MessageBoxButton.OK, MessageBoxImage.Hand);
-
                     listView.ItemsSource = Data.DB_Entities.GetContext().EventsMain.Where(d => d.EventName_Id == findByComboBox.SelectedIndex+1).ToList();
                 }
                 else
@@ -101,8 +96,6 @@ namespace Conference_Organization_App.Pages
                 if (selectedDate.HasValue)
                 {
                     string dateStr = selectedDate.Value.ToString("yyyy-MM-dd");
-
-                    MessageBox.Show($"Выбранная дата: {dateStr}", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     var selectedByDateTable = Data.DB_Entities.GetContext().EventsMain.Where(d => d.Date.ToString() == dateStr.ToString()).ToList();
 

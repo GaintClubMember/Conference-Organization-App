@@ -351,12 +351,6 @@ namespace Conference_Organization_App.Pages
             roleComboBox.ItemsSource = Data.DB_Entities.GetContext().Roles.ToList();
         }
 
-        private bool imageProcessor()
-        {
-            // image upload to db
-            return true;
-        }
-
         private static bool IsTextAllowed(string text)
         {
             return Regex.IsMatch(text, @"^[0-9]+$");
@@ -377,12 +371,6 @@ namespace Conference_Organization_App.Pages
                     bitmap.BeginInit();
                     bitmap.UriSource = new Uri(selectedFileName);
                     bitmap.EndInit();
-
-                    if (bitmap.PixelWidth != 300 || bitmap.PixelHeight != 200)
-                    {
-                        MessageBox.Show("Изображение должно быть размером 300x200 пикселей.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
 
                     imageHolder.Source = bitmap;
                     byte[] imageBytes = GetImageBytes(selectedFileName);

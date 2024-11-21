@@ -15,14 +15,23 @@ using System.Windows.Shapes;
 
 namespace Conference_Organization_App.Pages.Pages_By_Role
 {
-    /// <summary>
-    /// Логика взаимодействия для BlankPage.xaml
-    /// </summary>
     public partial class BlankPage : Page
     {
         public BlankPage()
         {
             InitializeComponent();
+        }
+
+        private void backbtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Classes.Manager.frameMaster.Navigate(new Pages.Pages_By_Role.OrganizatorPage(Classes.Manager.globalName, Classes.Manager.globalGender));
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
     }
 }

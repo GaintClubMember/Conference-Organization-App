@@ -30,118 +30,195 @@ namespace Conference_Organization_App.Pages
         public RegistrationJudgeModerPage()
         {
             InitializeComponent();
-            HideFindListView();
-            LoadComboBoxes();
-            idBox.Text = Data.DB_Entities.GetContext().Users.Max(d => d.id)+1.ToString();
+
+            try
+            {
+                HideFindListView();
+                LoadComboBoxes();
+                idBox.Text = Data.DB_Entities.GetContext().Users.Max(d => d.id) + 1.ToString();
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
-
-
-
-
-
-        // EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS 
-        // EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS 
-        // EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS  EVENTS LISTENERS 
 
         private void attachToEventCheck_Checked(object sender, RoutedEventArgs e)
         {
-            ShowEventComboBox();
+            try
+            {
+                ShowEventComboBox();
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
         private void attachToEventCheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            HideEventComboBox();
+            try
+            {
+                HideEventComboBox();
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
         
         private void directionsSearchMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedItem = directionSearchMenu.SelectedItem;
-            var selectedEvent = (UserEventDirections)selectedItem;
-            directionBox.Text = $"{selectedEvent.name.ToString()}";
+            try
+            {
+                var selectedItem = directionSearchMenu.SelectedItem;
+                var selectedEvent = (UserEventDirections)selectedItem;
+                directionBox.Text = $"{selectedEvent.name.ToString()}";
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
 
         private void okBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (errorsCount() == 0)
+            try
             {
-                fillData();
-                MessageBox.Show("Успешно добавленно", "Успешно!", MessageBoxButton.OK, MessageBoxImage.Information);
-                Classes.Manager.frameMaster.Navigate(new Pages.MyProfilePage());
+                if (errorsCount() == 0)
+                {
+                    fillData();
+                    MessageBox.Show("Успешно добавленно", "Успешно!", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Classes.Manager.frameMaster.Navigate(new Pages.MyProfilePage());
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
             }
         }
 
         private void phoneBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string input = phoneBox.Text;
-
-            input = input.Replace("+7", "").Replace("-", "").Replace(" ", "").Trim();
-
-            if (input.Length > 0)
+            try
             {
-                string formattedText = "+7 ";
+                string input = phoneBox.Text;
 
-                if (input.Length > 0) formattedText += input.Substring(0, Math.Min(3, input.Length)) + "-"; // First 3 digits
-                if (input.Length > 3) formattedText += input.Substring(3, Math.Min(3, input.Length - 3)) + "-"; // Next 3 digits
-                if (input.Length > 6) formattedText += input.Substring(6, Math.Min(2, input.Length - 6)) + "-"; // Next 2 digits
-                if (input.Length > 8) formattedText += input.Substring(8, Math.Min(2, input.Length - 8)); // Last 2 digits
+                input = input.Replace("+7", "").Replace("-", "").Replace(" ", "").Trim();
 
-                phoneBox.TextChanged -= phoneBox_TextChanged;
-                phoneBox.Text = formattedText.TrimEnd('-');
-                phoneBox.CaretIndex = phoneBox.Text.Length;
-                phoneBox.TextChanged += phoneBox_TextChanged;
+                if (input.Length > 0)
+                {
+                    string formattedText = "+7 ";
+
+                    if (input.Length > 0) formattedText += input.Substring(0, Math.Min(3, input.Length)) + "-"; // First 3 digits
+                    if (input.Length > 3) formattedText += input.Substring(3, Math.Min(3, input.Length - 3)) + "-"; // Next 3 digits
+                    if (input.Length > 6) formattedText += input.Substring(6, Math.Min(2, input.Length - 6)) + "-"; // Next 2 digits
+                    if (input.Length > 8) formattedText += input.Substring(8, Math.Min(2, input.Length - 8)); // Last 2 digits
+
+                    phoneBox.TextChanged -= phoneBox_TextChanged;
+                    phoneBox.Text = formattedText.TrimEnd('-');
+                    phoneBox.CaretIndex = phoneBox.Text.Length;
+                    phoneBox.TextChanged += phoneBox_TextChanged;
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
             }
         }
         private void phoneBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            e.Handled = !IsTextAllowed(e.Text);
+            try
+            {
+                e.Handled = !IsTextAllowed(e.Text);
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
         private void visiblePassword_Checked(object sender, RoutedEventArgs e)
         {
-            isPasswordVisible = true;
+            try
+            {
+                isPasswordVisible = true;
 
-            passwordTextBox.Visibility = Visibility.Visible;
-            passwordBox.Visibility = Visibility.Collapsed;
+                passwordTextBox.Visibility = Visibility.Visible;
+                passwordBox.Visibility = Visibility.Collapsed;
 
-            passwordTextBox2.Visibility = Visibility.Visible;
-            passwordBox2.Visibility = Visibility.Collapsed;
+                passwordTextBox2.Visibility = Visibility.Visible;
+                passwordBox2.Visibility = Visibility.Collapsed;
 
-            passwordTextBox.Text = passwordBox.Password;
-            passwordTextBox2.Text = passwordBox2.Password;
+                passwordTextBox.Text = passwordBox.Password;
+                passwordTextBox2.Text = passwordBox2.Password;
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
         private void visiblePassword_Unchecked(object sender, RoutedEventArgs e)
         {
-            isPasswordVisible = false;
+            try
+            {
+                isPasswordVisible = false;
 
-            passwordTextBox.Visibility = Visibility.Collapsed;
-            passwordBox.Visibility = Visibility.Visible;
+                passwordTextBox.Visibility = Visibility.Collapsed;
+                passwordBox.Visibility = Visibility.Visible;
 
-            passwordTextBox2.Visibility = Visibility.Collapsed;
-            passwordBox2.Visibility = Visibility.Visible;
+                passwordTextBox2.Visibility = Visibility.Collapsed;
+                passwordBox2.Visibility = Visibility.Visible;
 
-            passwordBox.Password = passwordTextBox.Text;
-            passwordBox2.Password = passwordTextBox2.Text;
+                passwordBox.Password = passwordTextBox.Text;
+                passwordBox2.Password = passwordTextBox2.Text;
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
         private void directionBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            directionSearchMenu.ItemsSource = (from item in Data.DB_Entities.GetContext().UserEventDirections
-                                               where item.name.ToLower().Contains(directionBox.Text) ||
-                                               item.id.ToString().Contains(directionBox.Text)
-                                               select item).ToList();
+            try
+            {
+                directionSearchMenu.ItemsSource = (from item in Data.DB_Entities.GetContext().UserEventDirections
+                                                   where item.name.ToLower().Contains(directionBox.Text) ||
+                                                   item.id.ToString().Contains(directionBox.Text)
+                                                   select item).ToList();
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
         private void directionBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            attachToEvent = true;
-            ShowFindListView();
+            try
+            {
+                attachToEvent = true;
+                ShowFindListView();
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
         private void directionBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            attachToEvent = false;
-            HideFindListView();
+            try
+            {
+                attachToEvent = false;
+                HideFindListView();
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
         private void cancelBtn_Click(object sender, RoutedEventArgs e)
@@ -157,82 +234,75 @@ namespace Conference_Organization_App.Pages
         }
 
 
-
-
-
-
-        // METHODS  METHODS  METHODS  METHODS  METHODS  METHODS  METHODS  METHODS 
-        // METHODS  METHODS  METHODS  METHODS  METHODS  METHODS  METHODS  METHODS 
-        // METHODS  METHODS  METHODS  METHODS  METHODS  METHODS  METHODS  METHODS 
         private void fillData()
         {
-            if (errorsCount() == 0)
+            try
             {
-                string[] fioByParts = fioBox.Text.Split(' ');
-                newUser.Lastname = fioByParts[0];
-                newUser.Name = fioByParts[1];
-                newUser.Patronymic = fioByParts[2];
-
-                newUser.Gender_Id = genderComboBox.SelectedIndex + 1;
-                newUser.Role_Id = roleComboBox.SelectedIndex + 1;
-
-                newUser.Email = emailBox.Text;
-                newUser.Phone = phoneBox.Text;
-
-                var UserDirectionIsExist = Data.DB_Entities.GetContext().UsersDirections.Where(d => d.name == directionBox.Text).FirstOrDefault();
-                if(UserDirectionIsExist != null)
+                if (errorsCount() == 0)
                 {
-                    newUser.UserDirection_Id = UserDirectionIsExist.id;
+                    string[] fioByParts = fioBox.Text.Split(' ');
+                    newUser.Lastname = fioByParts[0];
+                    newUser.Name = fioByParts[1];
+                    newUser.Patronymic = fioByParts[2];
+
+                    newUser.Gender_Id = genderComboBox.SelectedIndex + 1;
+                    newUser.Role_Id = roleComboBox.SelectedIndex + 1;
+
+                    newUser.Email = emailBox.Text;
+                    newUser.Phone = phoneBox.Text;
+
+                    var UserDirectionIsExist = Data.DB_Entities.GetContext().UsersDirections.Where(d => d.name == directionBox.Text).FirstOrDefault();
+                    if (UserDirectionIsExist != null)
+                    {
+                        newUser.UserDirection_Id = UserDirectionIsExist.id;
+                    }
+                    else
+                    {
+                        Data.UsersDirections _UserDirection = new Data.UsersDirections();
+                        _UserDirection.name = directionBox.Text;
+                        Data.DB_Entities.GetContext().UsersDirections.Add(_UserDirection);
+                        Data.DB_Entities.GetContext().SaveChanges();
+
+                        newUser.UserDirection_Id = _UserDirection.id;
+                    }
+
+                    if (isPasswordVisible == false)
+                    {
+                        newUser.Password = passwordBox.Password;
+                    }
+                    if (isPasswordVisible == true)
+                    {
+                        newUser.Password = passwordTextBox.Text;
+                    }
+
+                    if (attachToEvent == false)
+                    {
+                        newUser.UserEventDirection_Id = eventBox.SelectedIndex + 1;
+                    }
+                    newUser.Country_Id = 1;
+
+                    Data.DB_Entities.GetContext().Users.Add(newUser);
+                    Data.DB_Entities.GetContext().SaveChanges();
                 }
                 else
                 {
-                    Data.UsersDirections _UserDirection = new Data.UsersDirections();
-                    _UserDirection.name = directionBox.Text;
-                    Data.DB_Entities.GetContext().UsersDirections.Add(_UserDirection);
-                    Data.DB_Entities.GetContext().SaveChanges();
-
-                    newUser.UserDirection_Id = _UserDirection.id;
+                    return;
                 }
-
-                if (isPasswordVisible == false)
-                {
-                    newUser.Password = passwordBox.Password;
-                }
-                if (isPasswordVisible == true)
-                {
-                    newUser.Password = passwordTextBox.Text;
-                }
-
-                if (attachToEvent == false)
-                {
-                    newUser.UserEventDirection_Id = eventBox.SelectedIndex + 1;
-                }
-
-
-                // Image
-
-                newUser.Country_Id = 1; // delete later
-
-                Data.DB_Entities.GetContext().Users.Add(newUser);
-                Data.DB_Entities.GetContext().SaveChanges();
             }
-            else
+            catch(Exception ex)
             {
                 return;
             }
-
         }
 
         private int errorsCount()
         {
             StringBuilder errorsString = new StringBuilder();
-
-
             if (attachToEvent == true)
             {
                 if (String.IsNullOrEmpty(eventBox.Text))
                 {
-                    errorsString.AppendLine("event name is null");
+                    errorsString.AppendLine("Название мероприятия пустое");
                 }
             }
 
@@ -243,39 +313,37 @@ namespace Conference_Organization_App.Pages
 
                 if (Parts.Length == 3)
                 {
-                    //string lastname = Parts[0];
-                    //string name = Parts[1];
-                    //string patronymic = Parts[2];
+
                 }
                 else
                 {
-                    errorsString.AppendLine("fio need to be from 3 parts");
+                    errorsString.AppendLine("ФИО должно состоять из 3х частей");
                 }
             }
             else
             {
-                errorsString.AppendLine("fio is null");
+                errorsString.AppendLine("Поле ФИО пустое");
             }
 
             if (genderComboBox.SelectedValue == null)
             {
-                errorsString.AppendLine("gender is null");
+                errorsString.AppendLine("Поле Пол пустое");
             }
             if (roleComboBox.SelectedValue == null)
             {
-                errorsString.AppendLine("role is null");
+                errorsString.AppendLine("Поле Роль пустое");
             }
             if (String.IsNullOrEmpty(emailBox.Text))
             {
-                errorsString.AppendLine("email is null");
+                errorsString.AppendLine("Поле Email пустое");
             }
             if (String.IsNullOrEmpty(phoneBox.Text.ToString()))
             {
-                errorsString.AppendLine("phone is null");
+                errorsString.AppendLine("Поле Телефон пустое");
             }
             if (String.IsNullOrEmpty(directionBox.Text))
             {
-                errorsString.AppendLine("direction is null");
+                errorsString.AppendLine("Поле Направление пустое");
             }
 
             if (isPasswordVisible == true)
@@ -284,16 +352,16 @@ namespace Conference_Organization_App.Pages
                 {
                     if (passwordTextBox.Text.Length < 6 || passwordTextBox2.Text.Length < 6)
                     {
-                        errorsString.AppendLine($"password length must be more than 5 1:{passwordTextBox.Text.Length} 2:{passwordTextBox2.Text.Length}");
+                        errorsString.AppendLine($"Поле Пароль должно быть не короче 5 символов");
                     }
                     if (passwordTextBox.Text != passwordTextBox2.Text)
                     {
-                        errorsString.AppendLine("visible passwords doesnt match");
+                        errorsString.AppendLine("Пароли не совпадают");
                     }
                 }
                 else
                 {
-                    errorsString.AppendLine("visible passwords is empty");
+                    errorsString.AppendLine("Поля Паролей пустые");
                 }
             }
             else if (isPasswordVisible == false)
@@ -302,22 +370,22 @@ namespace Conference_Organization_App.Pages
                 {
                     if (passwordBox.Password.Length < 6 || passwordBox2.Password.Length < 6)
                     {
-                        errorsString.AppendLine($"password length must be more than 5:{passwordBox.Password.Length} 2:{passwordBox2.Password.Length}");
+                        errorsString.AppendLine($"Поле Пароль должно быть не короче 5 символов");
                     }
                     if (passwordBox.Password != passwordBox2.Password)
                     {
-                        errorsString.AppendLine("invisible passwords doesnt match");
+                        errorsString.AppendLine("Пароли не совпадают");
                     }
                 }
                 else
                 {
-                    errorsString.AppendLine("invisible passwords is empty");
+                    errorsString.AppendLine("Поля Паролей пустые");
                 }
             }
 
             if (errorsString.Length > 0)
             {
-                MessageBox.Show($"{errorsString.ToString()}", "Errors", MessageBoxButton.OK, MessageBoxImage.Stop);
+                MessageBox.Show($"{errorsString.ToString()}", "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Stop);
             }
 
             return errorsString.Length;

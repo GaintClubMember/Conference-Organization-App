@@ -9,6 +9,13 @@
       Title="Организация конференций - Заглушка">
 
     <Grid>
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <Button x:Name="backbtn" Click="backbtn_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Назад" Grid.Row="1" Width="170" Height="42"></Button>
     </Grid>
 </Page>

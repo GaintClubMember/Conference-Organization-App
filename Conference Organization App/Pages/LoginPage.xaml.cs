@@ -19,107 +19,121 @@ namespace Conference_Organization_App.Pages
         {
             InitializeComponent();
 
-            loginBox.Text = "26";
-            passwordBox.Text = "bBFR23s95s";
+            try
+            {
+                //loginBox.Text = "26";
+                //passwordBox.Password = "bBFR23s95s";
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
         private void checkAuth()
         {
-            if (Manager.failedAuthCount < 2)
+            try
             {
-                string login = loginBox.Text;
-                string password = passwordBox.Text;
-
-                if (Data.DB_Entities.GetContext().Users.Any(d => d.id.ToString() == login && d.Password == password))
+                if (Manager.failedAuthCount < 2)
                 {
-                    Manager.currentOrSavedUser = Data.DB_Entities.GetContext().Users
-                        .FirstOrDefault(d => d.id.ToString() == login && d.Password == password);
+                    string login = loginBox.Text;
+                    string password = passwordBox.Password;
 
-                    string role = Manager.currentOrSavedUser.Roles.name;
-
-                    string name = Manager.currentOrSavedUser.Name.ToString();
-                    string gender = Manager.currentOrSavedUser.Genders.name.ToString();
-
-                    switch (role)
+                    if (Data.DB_Entities.GetContext().Users.Any(d => d.id.ToString() == login && d.Password == password))
                     {
-                        case "Организатор":
-                            Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage(name, gender));
-                            break;
-                        case "Участник":
-                            Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
-                            break;
-                        case "Жюри":
-                            Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
-                            break;
-                        case "Модератор":
-                            Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
-                            break;
-                    }
+                        Manager.currentOrSavedUser = Data.DB_Entities.GetContext().Users
+                            .FirstOrDefault(d => d.id.ToString() == login && d.Password == password);
 
-                    MessageBox.Show("Успешная авторизация", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Неправильный логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Manager.failedAuthCount++;
-                }
-            }
+                        string role = Manager.currentOrSavedUser.Roles.name;
 
-            if (Manager.failedAuthCount >= 2)
-            {
-                if (Manager.failedAuthCount >= 3)
-                {
-                    if (!verifyCaptcha(captchaInputBox.Text) == true)
-                    {
-                        disableBoxes();
-                        MessageBox.Show("Неправильная каптча", "Блокировака", MessageBoxButton.OK, MessageBoxImage.Hand);
+                        string name = Manager.currentOrSavedUser.Name.ToString();
+                        string gender = Manager.currentOrSavedUser.Genders.name.ToString();
+
+                        switch (role)
+                        {
+                            case "Организатор":
+                                Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage(name, gender));
+                                break;
+                            case "Участник":
+                                Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
+                                break;
+                            case "Жюри":
+                                Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
+                                break;
+                            case "Модератор":
+                                Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
+                                break;
+                        }
+
+                        MessageBox.Show("Успешная авторизация", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     else
                     {
-                        string login = loginBox.Text;
-                        string password = passwordBox.Text;
+                        MessageBox.Show("Неправильный логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        Manager.failedAuthCount++;
+                    }
+                }
 
-                        if (Data.DB_Entities.GetContext().Users.Any(d => d.id.ToString() == login && d.Password == password))
+                if (Manager.failedAuthCount >= 2)
+                {
+                    if (Manager.failedAuthCount >= 3)
+                    {
+                        if (!verifyCaptcha(captchaInputBox.Text) == true)
                         {
-                            Manager.currentOrSavedUser = Data.DB_Entities.GetContext().Users
-                                .FirstOrDefault(d => d.id.ToString() == login && d.Password == password);
-
-                            string role = Manager.currentOrSavedUser.Roles.name;
-
-                            string name = Manager.currentOrSavedUser.Name.ToString();
-                            string gender = Manager.currentOrSavedUser.Genders.name.ToString();
-
-                            switch (role)
-                            {
-                                case "Организатор":
-                                    Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage(name, gender));
-                                    break;
-                                case "Участник":
-                                    Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
-                                    break;
-                                case "Жюри":
-                                    Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
-                                    break;
-                                case "Модератор":
-                                    Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
-                                    break;
-                            }
-                            MessageBox.Show("Успешная авторизация", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                            disableBoxes();
+                            MessageBox.Show("Неправильная каптча", "Блокировака", MessageBoxButton.OK, MessageBoxImage.Hand);
                         }
                         else
                         {
-                            MessageBox.Show("Неправильный логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                            Manager.failedAuthCount++;
-                            disableBoxes();
+                            string login = loginBox.Text;
+                            string password = passwordBox.Password;
+
+                            if (Data.DB_Entities.GetContext().Users.Any(d => d.id.ToString() == login && d.Password == password))
+                            {
+                                Manager.currentOrSavedUser = Data.DB_Entities.GetContext().Users
+                                    .FirstOrDefault(d => d.id.ToString() == login && d.Password == password);
+
+                                string role = Manager.currentOrSavedUser.Roles.name;
+
+                                string name = Manager.currentOrSavedUser.Name.ToString();
+                                string gender = Manager.currentOrSavedUser.Genders.name.ToString();
+
+                                switch (role)
+                                {
+                                    case "Организатор":
+                                        Manager.frameMaster.Navigate(new Pages_By_Role.OrganizatorPage(name, gender));
+                                        break;
+                                    case "Участник":
+                                        Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
+                                        break;
+                                    case "Жюри":
+                                        Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
+                                        break;
+                                    case "Модератор":
+                                        Manager.frameMaster.Navigate(new Pages_By_Role.BlankPage());
+                                        break;
+                                }
+                                MessageBox.Show("Успешная авторизация", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Неправильный логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                                Manager.failedAuthCount++;
+                                disableBoxes();
+                            }
                         }
                     }
+                    else
+                    {
+                        Manager.failedAuthCount++;
+                        ShowCaptcha();
+                        generateCaptcha();
+                    }
                 }
-                else
-                {
-                    Manager.failedAuthCount++;
-                    ShowCaptcha();
-                    generateCaptcha();
-                }
+            }
+            catch (Exception ex)
+            {
+                return;
             }
         }
 
@@ -127,82 +141,135 @@ namespace Conference_Organization_App.Pages
 
         private void disableBoxes()
         {
-            loginBox.IsEnabled = false;
-            passwordBox.IsEnabled = false;
-            Classes.Manager.StartBlockTimer(UnblockBoxes);
+            try
+            {
+                loginBox.IsEnabled = false;
+                passwordBox.IsEnabled = false;
+                Classes.Manager.StartBlockTimer(UnblockBoxes);
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
 
 
         private void UnblockBoxes()
         {
-            captchaInputBox.Text = $"Блокировка: {Classes.Manager.BlockDuration} сек";
-            if (Classes.Manager.BlockDuration == 0)
+            try
             {
-                loginBox.IsEnabled = true;
-                passwordBox.IsEnabled = true;
-                MessageBox.Show("Можете попробовать снова", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                captchaInputBox.Text = "";
-                generateCaptcha();
+                captchaInputBox.Text = $"Блокировка: {Classes.Manager.BlockDuration} сек";
+                if (Classes.Manager.BlockDuration == 0)
+                {
+                    loginBox.IsEnabled = true;
+                    passwordBox.IsEnabled = true;
+                    MessageBox.Show("Можете попробовать снова", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    captchaInputBox.Text = "";
+                    generateCaptcha();
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
             }
         }
 
         private void ShowCaptcha()
         {
-            captchaStackPanel.Visibility = Visibility.Visible;
+            try
+            {
+                captchaStackPanel.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
         private static bool verifyCaptcha(string captchaText)
         {
-            return validCaptcha == captchaText;
+                return validCaptcha == captchaText;
         }
 
         private void generateCaptcha()
         {
-            int randomCaptcha = randomNumber.Next(0, 2);
-            string imagePath;
-            MessageBox.Show($"{randomCaptcha.ToString()}", "!!!", MessageBoxButton.OK, MessageBoxImage.Hand);
-            if (randomCaptcha == 1)
+            try
             {
-                imagePath = $"C:/Users/User/source/repos/Conference Organization App/Conference Organization App/Resources/Captcha/captcha_1.png";
-                validCaptcha = "1acr";
-            }
-            else
-            {
-                imagePath = $"C:/Users/User/source/repos/Conference Organization App/Conference Organization App/Resources/Captcha/captcha_2.png";
-                validCaptcha = "5ik6";
-            }
+                int randomCaptcha = randomNumber.Next(0, 2);
+                string imagePath;
+                if (randomCaptcha == 1)
+                {
+                    imagePath = $"C:/Users/User/source/repos/Conference Organization App/Conference Organization App/Resources/Captcha/captcha_1.png";
+                    validCaptcha = "1acr";
+                }
+                else
+                {
+                    imagePath = $"C:/Users/User/source/repos/Conference Organization App/Conference Organization App/Resources/Captcha/captcha_2.png";
+                    validCaptcha = "5ik6";
+                }
 
-            if (File.Exists(imagePath))
-            {
-                BitmapImage bitmapImage = new BitmapImage(new Uri(imagePath, UriKind.Relative));
-                WriteableBitmap writeableBitmap = new WriteableBitmap(bitmapImage);
-                AddNoiseToCaptcha(writeableBitmap);
-                captchaImage.Source = writeableBitmap;
+                if (File.Exists(imagePath))
+                {
+                    BitmapImage bitmapImage = new BitmapImage(new Uri(imagePath, UriKind.Relative));
+                    WriteableBitmap writeableBitmap = new WriteableBitmap(bitmapImage);
+                    AddNoiseToCaptcha(writeableBitmap);
+                    captchaImage.Source = writeableBitmap;
+                }
+                else
+                {
+                    MessageBox.Show("Каптча не найдена");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Каптча не найдена");
+                return;
             }
         }
 
         private void AddNoiseToCaptcha(WriteableBitmap bitmap)
         {
-            Random random = new Random();
-            for (int i = 0; i < 50; i++)
+            try
             {
-                int x = random.Next(0, bitmap.PixelWidth);
-                int y = random.Next(0, bitmap.PixelHeight);
-                byte[] blackPixel = { 0, 0, 0, 255 };
-                bitmap.Lock();
-                bitmap.WritePixels(new System.Windows.Int32Rect(x, y, 1, 1), blackPixel, 10, 0);
-                bitmap.Unlock();
+                Random random = new Random();
+                for (int i = 0; i < 50; i++)
+                {
+                    int x = random.Next(0, bitmap.PixelWidth);
+                    int y = random.Next(0, bitmap.PixelHeight);
+                    byte[] blackPixel = { 0, 0, 0, 255 };
+                    bitmap.Lock();
+                    bitmap.WritePixels(new System.Windows.Int32Rect(x, y, 1, 1), blackPixel, 10, 0);
+                    bitmap.Unlock();
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
             }
         }
 
         private void applyBtn_Click(object sender, RoutedEventArgs e)
         {
-            checkAuth();
+            try
+            {
+                checkAuth();
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
+
+        private void backBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Classes.Manager.frameMaster.Navigate(new Pages.ListViewAll());
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
     }
 }

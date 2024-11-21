@@ -34,14 +34,29 @@ namespace Conference_Organization_App.Pages
 
         private void loadComboBox()
         {
-            var combo = Data.DB_Entities.GetContext().UserEventDirections.ToList();
-            combo.Add(new Data.UserEventDirections { name = "Все" });
-            findByComboBox.ItemsSource = combo;
+            try
+            {
+                var combo = Data.DB_Entities.GetContext().UserEventDirections.ToList();
+                combo.Insert(0, new Data.UserEventDirections { name = "Все" });
+                findByComboBox.ItemsSource = combo;
+                findByComboBox.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
         private void loadListView()
         {
-            listView.ItemsSource = Data.DB_Entities.GetContext().EventsMain.ToList();
+            try
+            {
+                listView.ItemsSource = Data.DB_Entities.GetContext().EventsMain.ToList();
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
         }
 
         private void findByTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -74,7 +89,8 @@ namespace Conference_Organization_App.Pages
             {
                 if (findByComboBox.SelectedValue.ToString() != "0")
                 {
-                    listView.ItemsSource = Data.DB_Entities.GetContext().EventsMain.Where(d => d.EventName_Id == findByComboBox.SelectedIndex+1).ToList();
+                    listView.ItemsSource = Data.DB_Entities.GetContext().EventsMain
+                        .Where(d => d.EventName_Id == findByComboBox.SelectedIndex+1).ToList();
                 }
                 else
                 {
@@ -97,7 +113,8 @@ namespace Conference_Organization_App.Pages
                 {
                     string dateStr = selectedDate.Value.ToString("yyyy-MM-dd");
 
-                    var selectedByDateTable = Data.DB_Entities.GetContext().EventsMain.Where(d => d.Date.ToString() == dateStr.ToString()).ToList();
+                    var selectedByDateTable = Data.DB_Entities.GetContext().EventsMain
+                        .Where(d => d.Date.ToString() == dateStr.ToString()).ToList();
 
                     listView.ItemsSource = selectedByDateTable;
                 }

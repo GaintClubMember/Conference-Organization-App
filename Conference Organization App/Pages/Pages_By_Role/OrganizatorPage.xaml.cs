@@ -28,27 +28,17 @@ namespace Conference_Organization_App.Pages.Pages_By_Role
         public OrganizatorPage(string name, string gender)
         {
             InitializeComponent();
-            DataContext = Classes.Manager.currentOrSavedUser;
-            Classes.Manager.globalName = name;
-            Classes.Manager.globalGender = gender;
 
             try
             {
+                DataContext = Classes.Manager.currentOrSavedUser;
+                Classes.Manager.globalName = name;
+                Classes.Manager.globalGender = gender;
+
                 _name = name;
                 _gender = gender;
 
                 SetWelcomeText();
-            }
-            catch (Exception ex)
-            {
-                return;
-            }
-        }
-        private void regBtn_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-
             }
             catch (Exception ex)
             {
@@ -84,7 +74,7 @@ namespace Conference_Organization_App.Pages.Pages_By_Role
         {
             try
             {
-
+                Classes.Manager.frameMaster.Navigate(new Pages.Pages_By_Role.BlankPage());
             }
             catch (Exception ex)
             {
@@ -96,7 +86,7 @@ namespace Conference_Organization_App.Pages.Pages_By_Role
         {
             try
             {
-
+                Classes.Manager.frameMaster.Navigate(new Pages.Pages_By_Role.BlankPage());
             }
             catch (Exception ex)
             {
@@ -141,23 +131,30 @@ namespace Conference_Organization_App.Pages.Pages_By_Role
 
         private void SetWelcomeText()
         {
-            setWelcomeCutIndex();
-            int hour = DateTime.Now.Hour;
-            if (hour >= 9 && hour <= 11)
+            try
             {
-                welcomeLabel.Content = $"Доброе утро!\n   {MrOrMrs} {_name}";
+                setWelcomeCutIndex();
+                int hour = DateTime.Now.Hour;
+                if (hour >= 9 && hour <= 11)
+                {
+                    welcomeLabel.Content = $"Доброе утро!\n   {MrOrMrs} {_name}";
+                }
+                else if (hour >= 11 && hour < 18)
+                {
+                    welcomeLabel.Content = $"Добрый день!\n   {MrOrMrs} {_name}";
+                }
+                else if (hour >= 18 && hour <= 24)
+                {
+                    welcomeLabel.Content = $"Добрый вечер!\n   {MrOrMrs} {_name}";
+                }
+                else
+                {
+                    welcomeLabel.Content = $"Добро пожаловать!\n{MrOrMrs} {_name}";
+                }
             }
-            else if (hour >= 11 && hour < 18)
+            catch (Exception ex)
             {
-                welcomeLabel.Content = $"Добрый день!\n   {MrOrMrs} {_name}";
-            }
-            else if (hour >= 18 && hour <= 24)
-            {
-                welcomeLabel.Content = $"Добрый вечер!\n   {MrOrMrs} {_name}";
-            }
-            else
-            {
-                welcomeLabel.Content = $"Добро пожаловать!\n{MrOrMrs} {_name}";
+                return;
             }
         }
     }
